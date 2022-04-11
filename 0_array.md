@@ -4,7 +4,7 @@
 
 ## 1. 两数之和
 
-<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411151334618.png" alt="image-20220411151334618"  />
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411151334618.png" alt="image-20220411151334618" style="zoom:50%;" />
 
 **原accept答案**：简单优化的暴力破解。
 
@@ -34,7 +34,7 @@ class Solution:
 
 ## 2. 回文数
 
-![image-20220411160948137](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411160948137.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411160948137.png" alt="image-20220411160948137" style="zoom:50%;" />
 
 **原accept答案**：
 
@@ -89,11 +89,11 @@ class Solution:
 
 ## 3. 罗马数字转整数
 
-![image-20220411201635950](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201635950.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201635950.png" alt="image-20220411201635950" style="zoom:50%;" />
 
-![image-20220411201655047](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201655047.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201655047.png" alt="image-20220411201655047" style="zoom:50%;" />
 
-![image-20220411201710589](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201710589.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411201710589.png" alt="image-20220411201710589" style="zoom:50%;" />
 
 **题解要点**：该题目的要点在于分析罗马字的转换原理——“<u>依次成对比较</u>”，即对于字符`str[i]`，若`str[i]`代表的数字小于`str[i+1]`，则`str[i]`应当按负数处理；反之则按正数处理。注意边界条件的影响
 
@@ -120,7 +120,7 @@ class Solution:
 
 ## 4. 最长公共前缀
 
-![image-20220411203558873](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411203558873.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411203558873.png" alt="image-20220411203558873" style="zoom:50%;" />
 
 **原accept答案**：
 
@@ -149,9 +149,9 @@ class Solution:
 
 ## 5. 有效的括号
 
-![image-20220411213537532](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411213537532.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411213537532.png" alt="image-20220411213537532" style="zoom:50%;" />
 
-![image-20220411213557958](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411213557958.png)
+<img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220411213557958.png" alt="image-20220411213557958" style="zoom:50%;" />
 
 **解题要点**：需要理清以下思路，<u>遇到左括号一律进栈，遇到右括号一律与栈尾进行匹配检查</u>。注意以下边界条件：
 
