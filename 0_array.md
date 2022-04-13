@@ -453,9 +453,13 @@ class Solution:
 
 > 将两个升序链表合并为一个新的 **升序** 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 >
->  **示例 1：**
+> **示例 1：**
 >
-> <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220413161429202.png" alt="image-20220413161429202" width="50%" />
+> <div align="center">
+>   <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220413161429202.png" alt="image-20220413161429202" width="70%" />
+> </div>
+>
+> 
 >
 > ```
 > 输入：l1 = [1,2,4], l2 = [1,3,4]
