@@ -3,7 +3,7 @@
 ## 本章重点
 
 1. 字符串匹配，Knuth-Morris-Pratt（KMP）算法（<a href="#strstr">寻找子串问题</a>）
-2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="两数之和问题">两数之和问题</a>）
+2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="#两数之和问题">两数之和问题</a>）
 3. <u>原地</u>删除列表中的元素，不能使用python自带的pop或者del，利用<u>双指针</u>做元素替换/拷贝（<a href="#deleterep">删除重复元素</a>、<a href="#deletenum">删除指定数字</a>）
 
 ## 本章题目思路记忆要点
