@@ -455,7 +455,7 @@ class Solution:
 >
 >  **示例 1：**
 >
-> <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220413161429202.png" alt="image-20220413161429202" style="zoom:33%;" />
+> <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220413161429202.png" alt="image-20220413161429202" width="50%" />
 >
 > ```
 > 输入：l1 = [1,2,4], l2 = [1,3,4]
