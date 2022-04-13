@@ -25,3 +25,13 @@
 
     **array**：两数之和（[Two Sum](https://leetcode-cn.com/problems/two-sum/)）、回文数（[Palindrome Number](https://leetcode-cn.com/problems/palindrome-number/)）、罗马数字转整数（[Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)）、最长公共前缀（[Longest Common Prefix](https://leetcode-cn.com/problems/longest-common-prefix/)）、有效的括号（[Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/)）
 
+2. **2022.04.13**
+
+    **array**：合并两个有序列表（[Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)）、删除有序数组中的重复项（[Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)）、移除元素（[Remove Element](https://leetcode-cn.com/problems/remove-element/)）、实现 strStr()（[Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)）、搜索插入位置（[Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)）
+
+
+
+## TODO
+
+1. 学习Knuth-Morris-Pratt（KMP）算法，并完善在array文档
+
