@@ -3,7 +3,7 @@
 ## 本章重点
 
 1. 字符串匹配，Knuth-Morris-Pratt（KMP）算法（<a href="#strstr">寻找子串问题</a>）
-2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="#两数之和问题">两数之和问题</a>）
+2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="#twosum">两数之和问题</a>）
 3. <u>原地</u>删除列表中的元素，不能使用python自带的pop或者del，利用<u>双指针</u>做元素替换/拷贝（<a href="#deleterep">删除重复元素</a>、<a href="#deletenum">删除指定数字</a>）
 
 ## 本章题目思路记忆要点
@@ -16,7 +16,7 @@
 
 ## 题目
 
-### 1. 两数之和 <a id="twosum">$^1$</a>
+### 1. 两数之和 <a id="twosum">📌</a>
 
 > 给定一个整数数组` nums `和一个整数目标值 `target`，请你在该数组中找出和为目标值 `target  `的那两个整数，并返回它们的数组下标。
 >
@@ -553,7 +553,7 @@ class Solution:
 
 
 
-### 7. 删除有序数组中的重复项 <a id="deleterep"> $^7$ </a>
+### 7. 删除有序数组中的重复项 <a id="deleterep">📌</a>
 
 > 给你一个 升序排列 的数组` nums` ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。
 >
@@ -637,7 +637,7 @@ class Solution:
 
 
 
-### 8. 移除元素 <a id="deletenum"> $^8$ </a>
+### 8. 移除元素 <a id="deletenum">📌</a>
 
 > 给你一个数组` nums `和一个值` val`，你需要 原地 移除所有数值等于` val `的元素，并返回移除后数组的新长度。
 >
@@ -733,7 +733,7 @@ class Solution:
 
 
 
-### 9. 实现 strStr() 函数  <a id="strstr"> $^9$ </a>
+### 9. 实现 strStr() 函数  <a id="strstr"> 📌</a>
 
 > 给你两个字符串` haystack `和` needle `，请你在` haystack `字符串中找出` needle `字符串出现的第一个位置（下标从` 0 `开始）。如果不存在，则返回`  -1 `。
 >
