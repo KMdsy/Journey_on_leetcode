@@ -1,6 +1,11 @@
-# Python语法查漏补缺
-
-
+---
+title: Python语法查漏补缺
+date: 2022-04-11 10:12:00
+updated: 2022-04-13 22:00:00
+tag:
+- leetcode
+- python
+---
 
 ## List
 

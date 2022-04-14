@@ -1,8 +1,17 @@
-# 数组 Array
+---
+title: 数组Array (easy)
+date: 2022-04-11 10:12:00
+updated: 2022-04-14 20:52:00
+tag:
+- leetcode
+- array
+---
+
+
 
 ## 本章重点
 
-1. 字符串匹配，Knuth-Morris-Pratt（KMP）算法（<a href="#strstr">寻找子串问题</a>）
+1. 字符串匹配，Sunday算法（<a href="#strstr">寻找子串问题</a>）
 2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="#twosum">两数之和问题</a>）
 3. <u>原地</u>删除列表中的元素，不能使用python自带的pop或者del，利用<u>双指针</u>做元素替换/拷贝（<a href="#deleterep">删除重复元素</a>、<a href="#deletenum">删除指定数字</a>）
 
@@ -795,9 +804,58 @@ class Solution:
         return -1
 ```
 
-**优化思路（Knuth-Morris-Pratt（KMP）算法）**：
+**优化思路（Sunday算法）**<a id="sunday">📌</a>：
 
-（待补充）
+Sunday算法比KMP算法好理解的多，先对这个算法做概述。先做如下定义：
+
+- 目标字符串：`String`
+
+- 模式串：`Pattern`
+
+- 当前查询索引：`idx `（初始为 0）
+
+- 待匹配字符串：`str_cut: String [ idx : idx + len(Pattern) ]`
+
+Sunday定义了一个<u>偏移表</u>，用于移动匹配框。偏移表针对每个出现在`Pattern`中的字符定义：
+
+- 针对`Pattern`中出现的字符`c`，`偏移表[c]`定义为：最右侧的`c`距离`Pattern`尾的距离`+ 1`
+
+Sunday的流程如下：
+
+1. 从目标串`String`中提取子串`str_cut`与`Pattern`进行匹配，若匹配则返回，不匹配则观察`str_cut`的下一位字符`c`是否出现在`Pattern`中
+    - 若出现：当前查询索引移动`偏移表[c]`个位置
+    - 若未出现：当前查询索引移动`len(Pattern) + 1`个位置
+2. 循环，直到找到，或`idx + len(Pattern) > len(String)`
+
+**优化答案（Sunday算法）**：
+
+```python
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if needle == '':
+            return 0
+        # 建立偏移表
+        table = {}
+        for idx in range(len(needle)):
+            letter = needle[-(idx+1)]
+            if letter not in table.keys():
+                table[letter] = idx + 1
+        # 匹配
+        search_idx = 0 # 查找起始点
+        str_len = len(needle)
+        while search_idx + str_len <= len(haystack):
+            if needle == haystack[search_idx:search_idx+str_len]:
+                return search_idx
+            else:
+                if search_idx + str_len < len(haystack):
+                    if haystack[search_idx + str_len] in needle:
+                        search_idx += table[haystack[search_idx+str_len]]
+                    else:
+                        search_idx += str_len + 1
+                else:
+                    return -1
+        return -1
+```
 
 
 

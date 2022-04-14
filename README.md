@@ -1,6 +1,10 @@
-# 从零开始的leetcode之旅
-
-
+---
+title: 从零开始的leetcode之旅
+date: 2022-04-11 10:12:00
+updated: 2022-04-14 21:41:00
+tag:
+- leetcode
+---
 
 学习之路总结：
 
@@ -15,7 +19,7 @@
 ## 目录
 
 0. [python语法查漏补缺](./python.md)
-1. [数组 Array](./0_array.md)
+1. 数组 Array: [easy](./0_array_easy.md), [medium](./0_array_medium.md)
 
 
 
@@ -28,6 +32,16 @@
 2. **2022.04.13**
 
     **array**：合并两个有序列表（[Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)）、删除有序数组中的重复项（[Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)）、移除元素（[Remove Element](https://leetcode-cn.com/problems/remove-element/)）、实现 strStr()（[Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)）、搜索插入位置（[Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)）
+
+3. **2022.04.14**
+
+    array：
+
+
+
+## 重点算法索引
+
+1. 单模字符串匹配算法（[寻找子串问题](./0_array_easy.md#strstr)）：1⃣️ Sunday算法，[自己写的思路](./0_array_easy.md#sunday)，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/python3-sundayjie-fa-9996-by-tes/)；2⃣️ KMP算法，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/shua-chuan-lc-shuang-bai-po-su-jie-fa-km-tb86/)
 
 
 
