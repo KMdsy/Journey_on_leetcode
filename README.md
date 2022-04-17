@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-04-14 21:41:00
+updated: 2022-04-17 21:39:00
 tag:
 - leetcode
 ---
@@ -37,15 +37,22 @@ tag:
 
     **array**：两数相加（[Add Two Numbers](https://leetcode-cn.com/problems/add-two-numbers/)）
 
+4. **2022.04.17**
+
+    **array**：无重复字符的最长子串（[Longest Substring Without Repeating Characters](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)）、最长回文子串（[Longest Palindromic Substring](https://leetcode-cn.com/problems/longest-palindromic-substring/)）
+
 
 
 ## 重点算法索引
 
 1. 单模字符串匹配算法（[寻找子串问题](./0_array_easy.md#strstr)）：1⃣️ Sunday算法，[自己写的思路](./0_array_easy.md#sunday)，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/python3-sundayjie-fa-9996-by-tes/)；2⃣️ KMP算法，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/shua-chuan-lc-shuang-bai-po-su-jie-fa-km-tb86/)
+2. 动态规划算法 [link](https://zhuanlan.zhihu.com/p/365698607)：
+    1. [最长回文子串（入门）](./0_array_medium.md#dynamic_programing)
 
 
 
 ## TODO
 
-1. 学习Knuth-Morris-Pratt（KMP）算法，并完善在array文档
+1. 学习Knuth-Morris-Pratt（KMP）算法，并完善在array_easy文档（2022.04.13）
+2. 动态规划，看着思路写一遍代码，完善在array_medium文档（2022.04.17）
 

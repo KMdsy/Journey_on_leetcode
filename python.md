@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-04-13 22:00:00
+updated: 2022-04-17 21:00:00
 tag:
 - leetcode
 - python
@@ -16,6 +16,13 @@ tag:
 ## Dictionary
 
 - `res = dict.get(key)`: 返回指定键的值，若查询不到，返回`None`。
+
+
+
+## Set
+
+- `set.add(x)`：将`x`添加到集合中
+- `set.remove(x)`：将值`x`从集合中去除
 
 
 
