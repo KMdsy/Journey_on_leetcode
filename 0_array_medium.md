@@ -9,7 +9,7 @@ tag:
 
 ## 本章重点
 
-1. 滑动窗口法：双指针+haspmap（<a href="#longest_substr_no_repeat">查找最长不重复子串问题</a>）
+1. 滑动窗口法：双指针+hashmap（<a href="#longest_substr_no_repeat">查找最长不重复子串问题</a>）
 2. 动态规划法，详见<a href="#longest_palindromic_substr">最长回文子串问题</a>
 
 ## 本章题目思路记忆要点
