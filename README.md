@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-04-17 21:39:00
+updated: 2022-04-27 21:17:00
 tag:
 - leetcode
 ---
@@ -40,6 +40,10 @@ tag:
 4. **2022.04.17**
 
     **array**：无重复字符的最长子串（[Longest Substring Without Repeating Characters](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)）、最长回文子串（[Longest Palindromic Substring](https://leetcode-cn.com/problems/longest-palindromic-substring/)）
+
+5. **2022.04.27**
+
+    **array**：Z字形变换（[ ZigZag Conversion](https://leetcode-cn.com/problems/zigzag-conversion/)）、盛最多水的容器（[Container With Most Water](https://leetcode-cn.com/problems/container-with-most-water/)）、整数转罗马数字（[Integer to Roman](https://leetcode-cn.com/problems/integer-to-roman/)）
 
 
 

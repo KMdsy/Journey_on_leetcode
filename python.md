@@ -16,6 +16,10 @@ tag:
 ## Dictionary
 
 - `res = dict.get(key)`: 返回指定键的值，若查询不到，返回`None`。
+- `res = dict.pop(key)`：删除指定键，并返回该键对应的值。
+- 几种遍历方法：
+    - `for k, v in dict.items(): print(k, v)`
+
 
 
 
