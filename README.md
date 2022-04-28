@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-04-27 21:17:00
+updated: 2022-04-28 21:15:00
 tag:
 - leetcode
 ---
@@ -45,6 +45,14 @@ tag:
 
     **array**：Z字形变换（[ ZigZag Conversion](https://leetcode-cn.com/problems/zigzag-conversion/)）、盛最多水的容器（[Container With Most Water](https://leetcode-cn.com/problems/container-with-most-water/)）、整数转罗马数字（[Integer to Roman](https://leetcode-cn.com/problems/integer-to-roman/)）
 
+6. **2022.04.28**
+
+    **array**：三数之和（[3Sum](https://leetcode-cn.com/problems/3sum/)）、最接近的三数之和（[3Sum Closest](https://leetcode-cn.com/problems/3sum-closest/)）
+
+
+
+
+
 
 
 ## 重点算法索引
@@ -52,6 +60,9 @@ tag:
 1. 单模字符串匹配算法（[寻找子串问题](./0_array_easy.md#strstr)）：1⃣️ Sunday算法，[自己写的思路](./0_array_easy.md#sunday)，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/python3-sundayjie-fa-9996-by-tes/)；2⃣️ KMP算法，[leetcode](https://leetcode-cn.com/problems/implement-strstr/solution/shua-chuan-lc-shuang-bai-po-su-jie-fa-km-tb86/)
 2. 动态规划算法 [link](https://zhuanlan.zhihu.com/p/365698607)：
     1. [最长回文子串（入门）](./0_array_medium.md#dynamic_programing)
+3. 回溯 backtrack
+    1. [电话号码的所有组合](./0_array_medium.md#comb_phonenumber)
+
 
 
 
@@ -59,4 +70,5 @@ tag:
 
 1. 学习Knuth-Morris-Pratt（KMP）算法，并完善在array_easy文档（2022.04.13）
 2. 动态规划，看着思路写一遍代码，完善在array_medium文档（2022.04.17）
+3. 系统总结一下回溯（backtrack）方法的适用类型（2022.04.28）
 
