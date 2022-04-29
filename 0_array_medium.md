@@ -1,7 +1,7 @@
 ---
 title: 数组 Array (medium)
 date: 2022-04-14 19:58:00
-updated: 2022-04-29 16:35:00
+updated: 2022-04-29 22:32:00
 tag:
 - leetcode
 - array
@@ -21,6 +21,7 @@ tag:
 4. **整数转罗马字**：数字转罗马字的思路为，对数字`num`寻找不超过该数的符号表示，然后`num`减去可被符号表示的部分，直到`num`为0
 5. **整数翻转**：假设环境中不允许存储64位数字，那我们需要在乘10运算之前，将output与`2^31 // 10`做比较以保证不超过该数。
 6. **删除链表的倒数第N个节点**：可以用双指针法，注意哑节点（指向头部节点的虚拟节点）的使用，可以避免头节点的判断。
+7. **生成括号**：生成包含`n`个括号的问题`gp(n)`，其基本形式为`(a)b`，`a`, `b`分别代表一个有效的括号序列，`a`, `b`可以为空。对偶问题——[验证括号有效性](./0_array_easy.md#valid_parentheses)
 
 ## 题目
 
@@ -1201,4 +1202,57 @@ class Solution:
         second.next = second.next.next
         return dummy.next
 ```
+
+## 14. 括号生成
+
+> 数字` n `代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 **有效的** 括号组合。
+>
+> **示例 1**：
+>
+> ```
+> 输入：n = 3
+> 输出：["((()))","(()())","(())()","()(())","()()()"]
+> ```
+>
+> **示例 2**：
+>
+> ```
+> 输入：n = 1
+> 输出：["()"]
+> ```
+>
+> **提示**：
+>
+> - `1 <= n <= 8`
+
+**解题思路**：本题首先一定要用到递归，重点在于问题分解。本题的分解思路为：
+
+生成包含`n`个括号的问题`gp(n)`，其基本形式为`(a)b`，`a`, `b`分别代表一个有效的括号序列，`a`, `b`可以为空。
+
+**accept答案**：
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        # gp(n)可以分解为基本形式:(a)b
+        # a, b分别代表一个有效的括号序列，a, b可以为空
+        def gen(num):
+            if num == 1:
+                return ['()']
+            elif num == 0:
+                return ['']
+            this_output = []
+            for a in range(0, num):
+                b = num - a - 1
+                a_seq = gen(a)
+                b_seq = gen(b)
+                for item_a in a_seq:
+                    for item_b in b_seq:
+                        this_output.append(f'({item_a}){item_b}')
+            this_output = list(set(this_output))
+            return this_output
+        return gen(n)
+```
+
+
 

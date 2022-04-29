@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-04-29 16:35:00
+updated: 2022-04-29 22:32:00
 tag:
 - leetcode
 ---
@@ -51,9 +51,7 @@ tag:
 
 7. **2022.04.29**
 
-    **array**：整数翻转（[Reverse Integer](https://leetcode-cn.com/problems/reverse-integer/)）、字符串转整数（[String to Integer (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/)）、四数之和（[4Sum](https://leetcode-cn.com/problems/4sum/)）、删除链表的倒数第N个节点（[Remove Nth Node From End of List](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)）、
-
-
+    **array**：整数翻转（[Reverse Integer](https://leetcode-cn.com/problems/reverse-integer/)）、字符串转整数（[String to Integer (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/)）、四数之和（[4Sum](https://leetcode-cn.com/problems/4sum/)）、删除链表的倒数第N个节点（[Remove Nth Node From End of List](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)）、生成括号（[Generate Parentheses](https://leetcode-cn.com/problems/generate-parentheses/)）
 
 
 
