@@ -1260,8 +1260,11 @@ class Solution:
 > 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
 >
 >  <div align="center">
->    <img src="/Users/shaoyu/Library/Application Support/typora-user-images/image-20220505211615672.png" alt="image-20220505211615672" width="40%" />
->  </div>
+>    <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220505235347394.png" alt="image-20220505235347394" width="40%" />
+>   </div>
+>
+>
+> 
 >
 > 
 >
