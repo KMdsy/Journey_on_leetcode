@@ -1,7 +1,7 @@
 ---
 title: 数组 Array (medium)
 date: 2022-04-14 19:58:00
-updated: 2022-04-29 22:32:00
+updated: 2022-05-05 23:51:00
 tag:
 - leetcode
 - array
@@ -12,6 +12,7 @@ tag:
 1. 滑动窗口法（碰到需要双重遍历的题目，应当首先想到该方法）：双指针+hashmap（<a href="#longest_substr_no_repeat">查找最长不重复子串问题</a>）、双指针（[盛最多水的问题](#largest_area)）、双指针+排序（[三数之和问题](#three_sum)、[最接近的三数之和](#closest_target)、[四数之和问题](#four_sum)）、
 2. 动态规划法，详见<a href="#longest_palindromic_substr">最长回文子串问题</a>
 3. 回溯（backtrack）：[电话号码的所有组合](#comb_phonenumber)
+4. 二分法 + 快速乘法：[两数相除](#two_divide)
 
 ## 本章题目思路记忆要点
 
@@ -1252,6 +1253,148 @@ class Solution:
             this_output = list(set(this_output))
             return this_output
         return gen(n)
+```
+
+## 15. 两两交换列表中的节点
+
+> 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
+>
+>  <div align="center">
+>    <img src="/Users/shaoyu/Library/Application Support/typora-user-images/image-20220505211615672.png" alt="image-20220505211615672" width="40%" />
+>  </div>
+>
+> 
+>
+> **示例 1**：
+>
+> ```
+> 输入：head = [1,2,3,4]
+> 输出：[2,1,4,3]
+> ```
+>
+> **示例 2**：
+>
+> ```
+> 输入：head = []
+> 输出：[]
+> ```
+>
+> **示例 3**：
+>
+> ```
+> 输入：head = [1]
+> 输出：[1]
+> ```
+>
+> **提示**：
+>
+> - 链表中节点的数目在范围` [0, 100] `内
+> - `0 <= Node.val <= 100`
+
+**解题思路**：定义哑节点，梳理节点的迭代交换步骤，并写出通用的迭代步骤
+
+**原accept答案**：
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if head is None or head.next is None:
+            return head
+        dumb = ListNode(-1, head)
+        first = dumb
+        second = dumb.next
+        while second and first and second.next:
+            first.next = second.next
+            second.next = second.next.next
+            first.next.next = second
+            # next step
+            first = first.next.next
+            second = first.next
+        return dumb.next
+```
+
+## 16. 两数相除 <a id="two_divide">📌</a>
+
+> 给定两个整数，被除数` dividend `和除数` divisor`。将两数相除，要求不使用乘法、除法和` mod `运算符。
+>
+> 返回被除数` dividend `除以除数` divisor `得到的商。
+>
+> 整数除法的结果应当截去（truncate）其小数部分，例如：`truncate(8.345) = 8 `以及 `truncate(-2.7335) = -2`
+>
+> **示例 1**:
+>
+> ```
+> 输入: dividend = 10, divisor = 3
+> 输出: 3
+> 解释: 10/3 = truncate(3.33333..) = truncate(3) = 3
+> ```
+>
+> **示例 2**:
+>
+> ```
+> 输入: dividend = 7, divisor = -3
+> 输出: -2
+> 解释: 7/-3 = truncate(-2.33333..) = -2
+> ```
+>
+> 
+>
+> **提示**：
+>
+> - 被除数和除数均为` 32 `位有符号整数。
+> - 除数不为` 0`。
+> - 假设我们的环境只能存储 32 位有符号整数，其数值范围是` [−2^31,  2^31 − 1]`。本题中，如果除法结果溢出，则返回` 2^31 − 1`。
+
+**解题思路**：二分法查找使得`res * divisor <= dividend < (res + 1) * divisor`的数
+
+**accept答案**：
+
+```python
+class Solution:
+    def mul(self, x, y):
+        # x * y
+        res = 0
+        while y > 0:
+            if (y & 1) == 1:
+                # y的最低位
+                res += x # 此时最低位代表加一次x
+            # next loop
+            y >>= 1 # y向右移动一位
+            x += x # y向右移动之后，x所代表的含义要翻倍
+        return res
+    def divide(self, dividend: int, divisor: int) -> int:
+        int_max = 2 ** 31 - 1
+        int_min = - 2 ** 31
+        # 边界情况
+        if dividend == int_min and divisor == -1:
+            return int_max
+        if dividend == 0:
+            return 0
+    
+        if (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0):
+            is_neg = False
+        else:
+            is_neg = True
+        dividend, divisor = abs(dividend), abs(divisor)
+        # 二分法查找使得res * divisor <= dividend < (res + 1) * divisor的数
+        # res in [0, dividend]
+        left, right = 0, dividend
+        while left < right:
+            # mid = (left + right) / 2
+            mid = (left + right + 1) >> 1
+            # if mid * divisor > dividend
+            if self.mul(divisor, mid) <= dividend:
+                # NOTE: mid中的//与>>1都是向下取整的操作，所以在移动左指针的时候要加1，防止死循环
+                left = mid
+            else:
+                right = mid - 1
+        output = - left if is_neg else left
+        return output
 ```
 
 

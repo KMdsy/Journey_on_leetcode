@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-04-29 22:32:00
+updated: 2022-05-05 23:50:00
 tag:
 - leetcode
 ---
@@ -53,6 +53,10 @@ tag:
 
     **array**：整数翻转（[Reverse Integer](https://leetcode-cn.com/problems/reverse-integer/)）、字符串转整数（[String to Integer (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/)）、四数之和（[4Sum](https://leetcode-cn.com/problems/4sum/)）、删除链表的倒数第N个节点（[Remove Nth Node From End of List](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)）、生成括号（[Generate Parentheses](https://leetcode-cn.com/problems/generate-parentheses/)）
 
+8. **2022.05.05**
+
+    **array**：两两交换列表中的节点（[Swap Nodes in Pairs](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)）、两数相除（[Divide Two Integers](https://leetcode-cn.com/problems/divide-two-integers/)）
+
 
 
 ## 重点算法索引
@@ -63,6 +67,9 @@ tag:
 3. 回溯 backtrack
     1. [电话号码的所有组合](./0_array_medium.md#comb_phonenumber)
 
+4. 二分法 + 快速乘法
+    1. [两数相除问题](./0_array_medium.md#two_divide)
+
 
 
 
@@ -72,4 +79,6 @@ tag:
 2. 动态规划，看着思路写一遍代码，完善在array_medium文档（2022.04.17）
 3. 系统总结一下回溯（backtrack）方法的适用类型（2022.04.28）
 4. 有限状态自动机（[字符串转整数问题](https://leetcode-cn.com/problems/string-to-integer-atoi/solution/zi-fu-chuan-zhuan-huan-zheng-shu-atoi-by-leetcode-/)）(2022.04.29)
+5. 用递归实现链表的节点两两交换：[link](https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/liang-liang-jiao-huan-lian-biao-zhong-de-jie-di-91/)（2022.05.05）
+6. 彻底搞定二分法，以及向上/向下取整对代码的影响（[两数相除问题](./0_array_medium.md#two_divide)），题解：[link](https://leetcode-cn.com/problems/divide-two-integers/solution/shua-chuan-lc-er-fen-bei-zeng-cheng-fa-j-m73b/)（2022.05.05）
 
