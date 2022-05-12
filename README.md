@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-05-05 23:50:00
+updated: 2022-05-13 00:18:00
 tag:
 - leetcode
 ---
@@ -57,6 +57,10 @@ tag:
 
     **array**：两两交换列表中的节点（[Swap Nodes in Pairs](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)）、两数相除（[Divide Two Integers](https://leetcode-cn.com/problems/divide-two-integers/)）
 
+9. **2022.05.12**
+
+    **array**：全排列（[Permutations](https://leetcode.cn/problems/permutations/)）、全排列II（[Permutations II](https://leetcode.cn/problems/permutations-ii/)）、旋转图像（[Rotate Image](https://leetcode.cn/problems/rotate-image/)）Pow(x, n)（[ Pow(x, n)](https://leetcode.cn/problems/powx-n/)）、字母异位词分组（[Group Anagrams](https://leetcode.cn/problems/group-anagrams/)）、字符串相乘（[Multiply Strings](https://leetcode.cn/problems/multiply-strings/)）、组合总和（[Combination Sum](https://leetcode.cn/problems/combination-sum/)）
+
 
 
 ## 重点算法索引
@@ -66,6 +70,7 @@ tag:
     1. [最长回文子串（入门）](./0_array_medium.md#dynamic_programing)
 3. 回溯 backtrack
     1. [电话号码的所有组合](./0_array_medium.md#comb_phonenumber)
+    2. [组合总和](./0_array_medium.md#comb_sum)
 
 4. 二分法 + 快速乘法
     1. [两数相除问题](./0_array_medium.md#two_divide)
@@ -81,4 +86,4 @@ tag:
 4. 有限状态自动机（[字符串转整数问题](https://leetcode-cn.com/problems/string-to-integer-atoi/solution/zi-fu-chuan-zhuan-huan-zheng-shu-atoi-by-leetcode-/)）(2022.04.29)
 5. 用递归实现链表的节点两两交换：[link](https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/liang-liang-jiao-huan-lian-biao-zhong-de-jie-di-91/)（2022.05.05）
 6. 彻底搞定二分法，以及向上/向下取整对代码的影响（[两数相除问题](./0_array_medium.md#two_divide)），题解：[link](https://leetcode-cn.com/problems/divide-two-integers/solution/shua-chuan-lc-er-fen-bei-zeng-cheng-fa-j-m73b/)（2022.05.05）
-
+7. 今日所有题目都没有在文章中总结记忆点/重点，记得补上。对了，还没看题解，需要过一遍。（2022.05.12）

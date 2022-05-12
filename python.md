@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-04-17 21:00:00
+updated: 2022-05-12 23:38:00
 tag:
 - leetcode
 - python
@@ -17,6 +17,7 @@ tag:
 
 - `res = dict.get(key)`: 返回指定键的值，若查询不到，返回`None`。
 - `res = dict.pop(key)`：删除指定键，并返回该键对应的值。
+- `res = list(dict.keys())`返回所有键组成的列表；`res = list(dict.values())`返回所有值组成的列表。
 - 几种遍历方法：
     - `for k, v in dict.items(): print(k, v)`
 
