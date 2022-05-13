@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-05-12 23:38:00
+updated: 2022-05-13 13:01:00
 tag:
 - leetcode
 - python
@@ -10,6 +10,7 @@ tag:
 ## List
 
 - `res = list.pop()`，移除列表中指定索引的值，即`list.pop(index)`，默认移除最后一个值，函数返回被移除的值。
+- `list.insert(idx, value)`，向列表中的`idx`位置插入值`value`，其后的值自动向后移动。
 
 
 

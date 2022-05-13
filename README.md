@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-05-13 00:18:00
+updated: 2022-05-13 11:58:00
 tag:
 - leetcode
 ---
@@ -61,6 +61,10 @@ tag:
 
     **array**：全排列（[Permutations](https://leetcode.cn/problems/permutations/)）、全排列II（[Permutations II](https://leetcode.cn/problems/permutations-ii/)）、旋转图像（[Rotate Image](https://leetcode.cn/problems/rotate-image/)）Pow(x, n)（[ Pow(x, n)](https://leetcode.cn/problems/powx-n/)）、字母异位词分组（[Group Anagrams](https://leetcode.cn/problems/group-anagrams/)）、字符串相乘（[Multiply Strings](https://leetcode.cn/problems/multiply-strings/)）、组合总和（[Combination Sum](https://leetcode.cn/problems/combination-sum/)）
 
+10. **2022.05.13**
+
+    **array**：组合总和（[ Combination Sum II](https://leetcode.cn/problems/combination-sum-ii/)）、外观数列（[Count and Say](https://leetcode.cn/problems/count-and-say/)）
+
 
 
 ## 重点算法索引
@@ -70,7 +74,7 @@ tag:
     1. [最长回文子串（入门）](./0_array_medium.md#dynamic_programing)
 3. 回溯 backtrack
     1. [电话号码的所有组合](./0_array_medium.md#comb_phonenumber)
-    2. [组合总和](./0_array_medium.md#comb_sum)
+    2. [组合总和](./0_array_medium.md#comb_sum)、[组合总和II](./0_array_medium.md#comb_sum2)
 
 4. 二分法 + 快速乘法
     1. [两数相除问题](./0_array_medium.md#two_divide)
