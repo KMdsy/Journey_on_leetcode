@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-05-13 13:01:00
+updated: 2022-05-18 21:02:00
 tag:
 - leetcode
 - python
@@ -31,6 +31,52 @@ tag:
 - `set.remove(x)`：将值`x`从集合中去除
 
 
+
+## Collections
+
+`collections`拓展了python内置数据类型，提供更方便的方法与高性能存储类型。比如基础的字典是不支持顺序的，collections模块的OrderedDict类构建的字典可以支持顺序。
+
+⚠️：在leetcode中，无需`import`，即可使用该标准库，例如`queue = collection.deque([p])`
+
+### 概览
+
+该库包括9种数据类型
+
+```python
+import collections
+print(collections.__all__)
+['deque', 'defaultdict', 'namedtuple', 'UserDict', 'UserList', 
+'UserString', 'Counter', 'OrderedDict', 'ChainMap']
+```
+
+| 名称         | 用法                                                         |
+| ------------ | :----------------------------------------------------------- |
+| namedtuple() | 创建命名元组子类的工厂函数，生成可以使用名字来访问元素内容的tuple子类 |
+| deque        | 类似列表(list)的容器，实现了在两端快速添加(append)和弹出(pop) |
+| ChainMap     | 类似字典(dict)的容器类，将多个映射集合到一个视图里面         |
+| Counter      | 字典的子类，提供了可哈希对象的计数功能                       |
+| OrderedDict  | 字典的子类，保存了他们被添加的顺序，有序字典                 |
+| defaultdict  | 字典的子类，提供了一个工厂函数，为字典查询提供一个默认值     |
+| UserDict     | 封装了字典对象，简化了字典子类化                             |
+| UserList     | 封装了列表对象，简化了列表子类化                             |
+| UserString   | 封装了字符串对象，简化了字符串子类化（中文版翻译有误）       |
+
+### 常用类
+
+#### deque
+
+常用于**栈**（stack）和**队列**（queue），在两端追加元素时的复杂度都近似为$O(1)$，以下梳理基础方法。
+
+- `q = collections.deque(['a', 'b', 'c'])`：初始化队列，可加`maxlen`参数用于固定序列长度
+- `q.append('d'),q.appendleft('d')`：分别从右、左边添加一个元素
+- `q.extend(['d', 'e']), q.extendleft(['d', 'e'])`：分别从右、左边拓展列表
+- `q.pop(), q.popleft()`：分别从右、左边弹出一个元素
+- `q.clear()`：清除队列
+- `q.remove(x)`：移除第一个值为`x`的元素
+- `q.index(x)`：查找第一个`x`出现的位置，没有则返回`ValueError`
+- `q.insert(idx, x)`：在`idx`位置插入`x`
+- `q.reverse()`：元素逆序
+- `q.rotate(x)`：向右循环移动`x`个位置，`x < 0`则为向左移动
 
 ## Type Hints
 

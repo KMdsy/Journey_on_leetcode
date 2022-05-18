@@ -1,7 +1,7 @@
 ---
 title: 数组Array (easy)
 date: 2022-04-11 10:12:00
-updated: 2022-04-14 20:52:00
+updated: 2022-05-18 21:02:00
 tag:
 - leetcode
 - array
@@ -14,6 +14,7 @@ tag:
 1. 字符串匹配，Sunday算法（<a href="#strstr">寻找子串问题</a>）
 2. 借助字典实现的hashmap，实现$O(1)$的查询（<a href="#twosum">两数之和问题</a>）
 3. <u>原地</u>删除列表中的元素，不能使用python自带的pop或者del，利用<u>双指针</u>做元素替换/拷贝（<a href="#deleterep">删除重复元素</a>、<a href="#deletenum">删除指定数字</a>）
+4. 深度优先搜索、广度优先搜索（[相同的树](#same_tree)）
 
 ## 本章题目思路记忆要点
 
@@ -938,5 +939,116 @@ class Solution:
         # 注意，由于这里是输入的是升序的列表，所以在没有搜索到目标值时
         # 返回比target较小的指针，即left
         return left
+```
+
+## 11. 相同的树<a id="same_tree">📌</a>
+
+> 给你两棵二叉树的根节点` p `和` q `，编写一个函数来检验这两棵树是否相同。
+>
+> 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+>
+>  
+>
+> **示例 1**：
+>
+> <div align="center">
+>   <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220518163702940.png" width="35%" />
+> </div>
+>
+> ```
+> 输入：p = [1,2,3], q = [1,2,3]
+> 输出：true
+> ```
+>
+> **示例 2**：
+>
+> <div align="center">
+>   <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220518163853023.png" width="25%" />
+> </div>
+>
+> ```
+> 输入：p = [1,2], q = [1,null,2]
+> 输出：false
+> ```
+>
+> **示例 3**：
+>
+> <div align="center">
+>   <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20220518163946471.png" width="35%" />
+> </div>
+>
+> ```
+> 输入：p = [1,2,1], q = [1,1,2]
+> 输出：false
+> ```
+>
+> **提示**：
+>
+> - 两棵树上的节点数目都在范围 `[0, 100]` 内
+> - `-10^4 <= Node.val <= 10^4`
+
+**解题思路**：使用递归+深度遍历，即可解题。进阶的，可以考虑广度搜索。
+
+**原accept代码**：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        # 深度优先搜索
+        if p is None and q is None:
+            return True
+        else:
+            if p is not None and q is not None:
+                res0 = p.val == q.val
+                res1 = self.isSameTree(p.left, q.left)
+                res2 = self.isSameTree(p.right, q.right)
+                return res0 and res1 and res2
+            else:
+                return False
+```
+
+**广度优先搜索**：
+
+广度优先搜索的重点在于维护一个队列，该队列永远存储待判断的所有节点，并按照层级依次进队列。在判断节点是否具有相同结构前，节点从队列中推出。
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        # 广度优先搜索
+        if p is None and q is None:
+            return True
+        if p is None or q is None:
+            return False
+        if p.val != q.val: 
+            return False
+        # 该节点一致
+        queue1 = collections.deque([p])   
+        queue2 = collections.deque([q])
+        while len(queue1) != 0 and len(queue2) != 0:
+            node1 = queue1.pop()
+            node2 = queue2.pop()
+            if node1 is None and node2 is None:
+                continue
+            if node1 is None or node2 is None:
+                return False
+            if node1.val != node2.val:
+                return False
+            queue1.appendleft(node1.left)
+            queue1.append(node1.right)
+            queue2.appendleft(node2.left)
+            queue2.append(node2.right)
+        return True
 ```
 
