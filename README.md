@@ -69,6 +69,10 @@ tag:
 
     相同的树（[Same Tree](https://leetcode.cn/problems/same-tree/)）
 
+12. **2022.08.19**
+
+​		跳跃游戏II（[Jump Game II](https://leetcode.cn/problems/jump-game-ii/)）、
+
 
 
 ## 重点算法索引
@@ -86,6 +90,10 @@ tag:
 
 5. 树的深度优先和广度优先搜索
     1. [相同的树](./0_array_easy.md#same_tree)
+6. 贪心算法
+
+    1. [跳跃游戏II](./dynamic_programming/#跳跃游戏 II)
+
 
 ## TODO
 
@@ -96,3 +104,4 @@ tag:
 5. 用递归实现链表的节点两两交换：[link](https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/liang-liang-jiao-huan-lian-biao-zhong-de-jie-di-91/)（2022.05.05）
 6. 彻底搞定二分法，以及向上/向下取整对代码的影响（[两数相除问题](./0_array_medium.md#two_divide)），题解：[link](https://leetcode-cn.com/problems/divide-two-integers/solution/shua-chuan-lc-er-fen-bei-zeng-cheng-fa-j-m73b/)（2022.05.05）
 7. 今日所有题目都没有在文章中总结记忆点/重点，记得补上。对了，还没看题解，需要过一遍。（2022.05.12/13）
+8. 
