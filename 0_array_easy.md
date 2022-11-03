@@ -1052,3 +1052,71 @@ class Solution:
         return True
 ```
 
+
+
+## 1668. 最大重复子字符串
+
+> 给你一个字符串 `sequence` ，如果字符串 `word` 连续重复 `k` 次形成的字符串是 `sequence` 的一个子字符串，那么单词 `word` 的 **重复值为 `k`** 。单词 `word` 的 **最大重复值** 是单词 `word` 在 `sequence` 中最大的重复值。如果 `word` 不是 `sequence` 的子串，那么重复值 `k` 为 `0` 。
+>
+> 给你一个字符串 `sequence` 和 `word` ，请你返回 **最大重复值 `k`** 。
+>
+> **示例 1：**
+>
+> ```
+> 输入：sequence = "ababc", word = "ab"
+> 输出：2
+> 解释："abab" 是 "ababc" 的子字符串。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：sequence = "ababc", word = "ba"
+> 输出：1
+> 解释："ba" 是 "ababc" 的子字符串，但 "baba" 不是 "ababc" 的子字符串。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：sequence = "ababc", word = "ac"
+> 输出：0
+> 解释："ac" 不是 "ababc" 的子字符串。
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= sequence.length <= 100`
+> - `1 <= word.length <= 100`
+> - `sequence` 和 `word` 都只包含小写英文字母。
+
+答案：
+
+```python
+class Solution:
+    def maxRepeating(self, sequence: str, word: str) -> int:
+        '''
+        思路：暂时用暴力方法——迭代查找所有和word起始字母一致的位置，并从该位置开始判断子串长度，
+        最后取最大长度即可
+        '''
+        counts = []
+        l = len(word)
+        i = 0
+        while i < len(sequence):
+            if sequence[i:i+l] == word:
+                k = i
+                cnt = 0
+                while sequence[k:k+l] == word:
+                    # 开始查找从i开始的子串长度
+                    if sequence[k:k+l] == word:
+                        cnt += 1
+                    k += l
+                counts.append(cnt)
+                i += 1
+            else: 
+                i += 1
+        return max(counts, default=0)
+```
+
