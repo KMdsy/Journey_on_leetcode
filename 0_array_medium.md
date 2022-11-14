@@ -9,7 +9,7 @@ tag:
 
 ## 本章重点
 
-1. 滑动窗口法（碰到需要双重遍历的题目，应当首先想到该方法）：双指针+hashmap（<a href="#longest_substr_no_repeat">查找最长不重复子串问题</a>）、双指针（[盛最多水的问题](#largest_area)）、双指针+排序（[三数之和问题](#three_sum)、[最接近的三数之和](#closest_target)、[四数之和问题](#four_sum)）、
+1. 滑动窗口法（碰到需要双重遍历的题目，应当首先想到该方法）：双指针+hashmap（<a href="#longest_substr_no_repeat">查找最长不重复子串问题</a>）、双指针（[盛最多水的问题](#largest_area)）、双指针+排序（[三数之和问题](#three_sum)、[最接近的三数之和](#closest_target)、[四数之和问题](#four_sum)、[搜索旋转排序问题](#rotation_search)）、
 2. 动态规划法，详见<a href="#longest_palindromic_substr">最长回文子串问题</a>
 3. 回溯（backtrack）：[电话号码的所有组合](#comb_phonenumber)、[组合总和](#comb_sum)、[组合总和II](#comb_sum2)
 4. 二分法 + 快速乘法：[两数相除](#two_divide)
@@ -2101,5 +2101,92 @@ class Solution:
             nums[j] = tmp
             i += 1; j -= 1
         return nums
+```
+
+## 33. 搜索旋转排序数组 <a id="rotation_search">📌</a>
+
+> 整数数组 `nums` 按升序排列，数组中的值 **互不相同** 。
+>
+> 在传递给函数之前，`nums` 在预先未知的某个下标 `k`（`0 <= k < nums.length`）上进行了 **旋转**，使数组变为 `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`（下标 **从 0 开始** 计数）。例如， `[0,1,2,4,5,6,7]` 在下标 `3` 处经旋转后可能变为 `[4,5,6,7,0,1,2]` 。
+>
+> 给你 **旋转后** 的数组 `nums` 和一个整数 `target` ，如果 `nums` 中存在这个目标值 `target` ，则返回它的下标，否则返回 `-1` 。
+>
+> 你必须设计一个时间复杂度为 `O(log n)` 的算法解决此问题。
+>
+>  
+>
+> **示例 1：**
+>
+> ```
+> 输入：nums = [4,5,6,7,0,1,2], target = 0
+> 输出：4
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：nums = [4,5,6,7,0,1,2], target = 3
+> 输出：-1
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：nums = [1], target = 0
+> 输出：-1
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= nums.length <= 5000`
+> - `-104 <= nums[i] <= 104`
+> - `nums` 中的每个值都 **独一无二**
+> - 题目数据保证 `nums` 在预先未知的某个下标上进行了旋转
+> - `-104 <= target <= 104`
+
+accept答案：
+
+```python
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        '''
+        本题的难点应当在于复杂度的规定，如果直接查找，复杂度应当是O(n)
+        复杂度O(log n)代表算法的查找长度是递减的。
+        思路：
+        1. 二分法查找，主要分为以下几种情况
+        - mid = target: 直接输出
+        - nums[left] < nums[mid]: 前半段是有序数组，后半段是无序数组
+            - nums[left] <= target < nums[mid]: right = mid - 1
+            - else: left = mid + 1
+        - else: 前半段是无序数组，后半段是有序的
+            - nums[mid] < target <= nums[right]: left = mid + 1
+            - else: right = mid - 1
+        '''
+        if not nums:
+            return -1
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[0] <= nums[mid]:
+                # 0 - mid 是有序数组
+                if nums[0] <= target < nums[mid]:
+                    # target在前半段
+                    r = mid - 1
+                else:
+                    # target在后半段
+                    l = mid + 1
+            else:
+                # 0 - mid中包含旋转点，mid - len是有序的
+                if nums[mid] < target <= nums[len(nums) - 1]:
+                    # target在后半段
+                    l = mid + 1
+                else:
+                    # targe在前半段
+                    r = mid - 1
+        return -1
 ```
 
