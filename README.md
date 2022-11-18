@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-05-18 21:02:00
+updated: 2022-11-18 21:02:00
 tag:
 - leetcode
 ---
@@ -25,54 +25,9 @@ tag:
 
 ## 刷题之旅从现在开始
 
-1. **2022.04.11**
-
-    两数之和（[Two Sum](https://leetcode-cn.com/problems/two-sum/)）、回文数（[Palindrome Number](https://leetcode-cn.com/problems/palindrome-number/)）、罗马数字转整数（[Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)）、最长公共前缀（[Longest Common Prefix](https://leetcode-cn.com/problems/longest-common-prefix/)）、有效的括号（[Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/)）
-
-2. **2022.04.13**
-
-    合并两个有序列表（[Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)）、删除有序数组中的重复项（[Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)）、移除元素（[Remove Element](https://leetcode-cn.com/problems/remove-element/)）、实现 strStr()（[Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)）、搜索插入位置（[Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)）
-
-3. **2022.04.14**
-
-    两数相加（[Add Two Numbers](https://leetcode-cn.com/problems/add-two-numbers/)）
-
-4. **2022.04.17**
-
-    无重复字符的最长子串（[Longest Substring Without Repeating Characters](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)）、最长回文子串（[Longest Palindromic Substring](https://leetcode-cn.com/problems/longest-palindromic-substring/)）
-
-5. **2022.04.27**
-
-    Z字形变换（[ ZigZag Conversion](https://leetcode-cn.com/problems/zigzag-conversion/)）、盛最多水的容器（[Container With Most Water](https://leetcode-cn.com/problems/container-with-most-water/)）、整数转罗马数字（[Integer to Roman](https://leetcode-cn.com/problems/integer-to-roman/)）
-
-6. **2022.04.28**
-
-    三数之和（[3Sum](https://leetcode-cn.com/problems/3sum/)）、最接近的三数之和（[3Sum Closest](https://leetcode-cn.com/problems/3sum-closest/)）、电话号码的字母组合（[Letter Combinations of a Phone Number](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)）
-
-7. **2022.04.29**
-
-    整数翻转（[Reverse Integer](https://leetcode-cn.com/problems/reverse-integer/)）、字符串转整数（[String to Integer (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/)）、四数之和（[4Sum](https://leetcode-cn.com/problems/4sum/)）、删除链表的倒数第N个节点（[Remove Nth Node From End of List](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)）、生成括号（[Generate Parentheses](https://leetcode-cn.com/problems/generate-parentheses/)）
-
-8. **2022.05.05**
-
-    两两交换列表中的节点（[Swap Nodes in Pairs](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)）、两数相除（[Divide Two Integers](https://leetcode-cn.com/problems/divide-two-integers/)）
-
-9. **2022.05.12**
-
-    全排列（[Permutations](https://leetcode.cn/problems/permutations/)）、全排列II（[Permutations II](https://leetcode.cn/problems/permutations-ii/)）、旋转图像（[Rotate Image](https://leetcode.cn/problems/rotate-image/)）Pow(x, n)（[ Pow(x, n)](https://leetcode.cn/problems/powx-n/)）、字母异位词分组（[Group Anagrams](https://leetcode.cn/problems/group-anagrams/)）、字符串相乘（[Multiply Strings](https://leetcode.cn/problems/multiply-strings/)）、组合总和（[Combination Sum](https://leetcode.cn/problems/combination-sum/)）
-
-10. **2022.05.13**
-
-    组合总和（[ Combination Sum II](https://leetcode.cn/problems/combination-sum-ii/)）、外观数列（[Count and Say](https://leetcode.cn/problems/count-and-say/)）
-
-11. **2022.05.18**
-
-    相同的树（[Same Tree](https://leetcode.cn/problems/same-tree/)）
-
-12. **2022.08.19**
-
-​		跳跃游戏II（[Jump Game II](https://leetcode.cn/problems/jump-game-ii/)）、
-
+TODOs (Updated at 2022.11.18)
+- https://leetcode.cn/problems/global-and-local-inversions/discussion/
+- https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/?favorite=2cktkvj
 
 
 ## 重点算法索引
