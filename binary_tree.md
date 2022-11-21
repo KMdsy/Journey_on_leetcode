@@ -1,7 +1,7 @@
 ---
 title: Binary Tree 
 date: 2022-08-29 21:00:00
-updated: 2022-09-15 23:00:00
+updated: 2022-11-21 23:00:00
 tag:
 - leetcode
 - binary tree
@@ -70,6 +70,7 @@ void bfs(TreeNode root) {
     - 回溯的临界条件是查询到树的叶子节点，标志是：某个节点没有任何子节点，因此返回1（代表当前节点）。
     - 除此之外的逻辑是：当树只有一个子节点的时候，最短深度为`1 + depth(left/right)`；当树有两个子节点的时候，最短深度为`1 + min(depth(left), depth(right))`;树没有节点的时候，最短深度为1。
     - 注意整个树都为空的临界情况。
+1. **从中序和后序遍历序列构造二叉树**：
 
 ## 题目
 
@@ -431,5 +432,70 @@ class Solution:
             res.append(tmp_res)
             reverse_flag = False if reverse_flag else True 
         return res
+```
+
+11. [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/?favorite=2cktkvj)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        '''
+        思路：构造树的前提是识别根节点
+        
+        对于任意一颗树而言，前序遍历的形式总是
+        [ 根节点, [左子树的前序遍历结果], [右子树的前序遍历结果] ]
+        而中序遍历的形式总是
+        [ [左子树的中序遍历结果], 根节点, [右子树的中序遍历结果] ]
+        
+        只要我们在中序遍历中定位到根节点，那么我们就可以分别知道左子树和右子树中的节点数目。
+        由于同一颗子树的前序遍历和中序遍历的长度显然是相同的，因此我们就可以对应到前序遍历的结果中，
+        对上述形式中的所有左右括号进行定位。
+        '''
+        def find_sub(seq, subseq):
+            if len(subseq)>0:
+                # 返回subseq元素在seq中的排列顺序
+                seq_d = {}
+                for idx, i in enumerate(seq):
+                    seq_d[i] = idx # key: num, value: idx
+                re_idx = [seq_d.get(i) for i in subseq]
+                re_idx.sort() # 按在seq中的顺序排序
+                return [seq[i] for i in re_idx]
+            else:
+                return []
+        def func(pre_list, in_list):
+            # 给一个前、中序遍历，返回一个由遍历结果组成的树
+            if len(pre_list) == 0:
+                return None
+            elif len(pre_list) == 1:
+                return TreeNode(val=pre_list[0])
+            elif len(pre_list) == 2:
+                if in_list.index(pre_list[0]) == 0:
+                    return TreeNode(val=pre_list[0], right=TreeNode(val=pre_list[1]))
+                else:
+                    return TreeNode(val=pre_list[0], left=TreeNode(val=pre_list[1]))
+            else:
+                h = TreeNode(val=pre_list[0])
+                root_idx = in_list.index(h.val)
+                left_list_in = in_list[0:root_idx]
+                right_list_in = in_list[root_idx+1:]
+                # 在pre[1:]里查找左右子树的遍历
+                left_list_pre = find_sub(pre_list, left_list_in)
+                right_list_pre = find_sub(pre_list, right_list_in)
+                # 递归调用
+                if len(left_list_pre) > 0:
+                    l = func(left_list_pre, left_list_in)
+                    h.left = l
+                if len(right_list_pre) > 0:
+                    r = func(right_list_pre, right_list_in)
+                    h.right = r
+                return h
+        return func(preorder, inorder)
+
 ```
 
