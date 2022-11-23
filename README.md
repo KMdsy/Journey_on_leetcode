@@ -25,8 +25,8 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.11.22)
-- https://leetcode.cn/problems/maximum-subarray/?favorite=2cktkvj
+TODOs (Updated at 2022.11.23)
+- HOT 100, GO ON! 
 
 
 ## 重点算法索引

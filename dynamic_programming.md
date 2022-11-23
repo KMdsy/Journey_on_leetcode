@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2022-08-19 17:00:00
+updated: 2022-11-23 22:36:00
 tag:
 - leetcode
 - dynamic programming
@@ -165,5 +165,282 @@ class Solution:
         return len(paths) - 1
 ```
 
+## 53. 最大子数组和
 
+> 给你一个整数数组 `nums` ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+>
+> **子数组** 是数组中的一个连续部分。
+>
+>  
+>
+> **示例 1：**
+>
+> ```
+> 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+> 输出：6
+> 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：nums = [1]
+> 输出：1
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：nums = [5,4,-1,7,8]
+> 输出：23
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= nums.length <= 10^5`
+> - `-10^4 <= nums[i] <= 10^4`
+
+Accept答案：
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        '''
+        思路：动态规划——复习一下动态规划的要点
+        1. 拆分子问题：re = max_{i=0:n-1} f(i), 以i为结尾的连续子数组最大和
+        2. 构造状态转移方程f(i) = max{f(i-1)+nums[i], nums[i]}
+        3. 确定边界 f(0) = nums[0]
+        4. 从子问题计算并推广
+        '''
+        all_re = []
+        for i in range(len(nums)):
+            if i == 0:
+                all_re.append(nums[i])
+            else:
+                all_re.append(max([all_re[-1]+nums[i], nums[i]]))
+        return max(all_re)
+```
+
+## 62. 不同路径
+
+>  一个机器人位于一个 `m x n` 网格的左上角 （起始点在下图中标记为 “Start” ）。
+>
+> 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+>
+> 问总共有多少条不同的路径？
+>
+>  
+>
+> **示例 1：**
+>
+> ![img](https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png)
+>
+> ```
+> 输入：m = 3, n = 7
+> 输出：28
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：m = 3, n = 2
+> 输出：3
+> 解释：
+> 从左上角开始，总共有 3 条路径可以到达右下角。
+> 1. 向右 -> 向下 -> 向下
+> 2. 向下 -> 向下 -> 向右
+> 3. 向下 -> 向右 -> 向下
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：m = 7, n = 3
+> 输出：28
+> ```
+>
+> **示例 4：**
+>
+> ```
+> 输入：m = 3, n = 3
+> 输出：6
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= m, n <= 100`
+> - 题目数据保证答案小于等于 `2 * 10^9`
+
+accept答案：
+
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        '''
+        感觉是动态规划
+        1. 拆分子问题：f(m, n) = f(m-1, n) + f(m, n-1)
+        2. 状态转移方程: 
+            f(i, j) = f(i-1, j) + f(i, j-1), i != 0, j != 0
+            f(0, j) = f(0, j-1), j != 0
+            f(i, 0) = f(i-1, 0), i != 0
+        3. 边界: f(0, 0) = 1
+        4. 求解
+        '''
+        re = {}
+        re['0_0'] = 1
+        # 填充第一行
+        for j in range(n):
+            if j == 0:
+                continue
+            else:
+                re[f'{0}_{j}'] = re[f'{0}_{j-1}']
+        # 填充第一列
+        for i in range(m):
+            if i == 0:
+                continue
+            else:
+                re[f'{i}_{0}'] = re[f'{i-1}_{0}']
+        # 填充其他位置
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    continue
+                else:
+                    re[f'{i}_{j}'] = re[f'{i-1}_{j}'] + re[f'{i}_{j-1}']
+        return re[f'{m-1}_{n-1}']
+```
+
+## 64. 最小路径和
+
+> 给定一个包含非负整数的 `m x n` 网格 `grid` ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+>
+> **说明：**每次只能向下或者向右移动一步。
+>
+>  
+>
+> **示例 1：**
+>
+> ![img](https://assets.leetcode.com/uploads/2020/11/05/minpath.jpg)
+>
+> ```
+> 输入：grid = [[1,3,1],[1,5,1],[4,2,1]]
+> 输出：7
+> 解释：因为路径 1→3→1→1→1 的总和最小。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：grid = [[1,2,3],[4,5,6]]
+> 输出：12
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `m == grid.length`
+> - `n == grid[i].length`
+> - `1 <= m, n <= 200`
+> - `0 <= grid[i][j] <= 100`
+
+accept答案：
+
+```python
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        '''
+        动态规划：
+        1. 拆分子问题 
+            f(m,n)是到达(m,n)点的最小路径和，
+            f(m,n) = min{f(m-1,n), f(m,n-1)} + grid[m][n]
+        2. 状态转移方程
+            f(i,j) = min{f(i-1,j), f(i,j-1)} + grid[i][j], i, j != 0
+            f(0,j) = f(0,j-1) + grid[0][j], j != 0
+            f(i,0) = f(i-1,0) + grid[i][0], i != 0
+        2. 边界
+            f(0,0) = gird[0][0]
+        4. 求解
+        '''
+        m, n = len(grid), len(grid[0])
+        re = {}
+        for i in range(m):
+            for j in range(n):
+                if i == 0 and j == 0:
+                    re[f'{i}_{j}'] = grid[i][j]
+                elif i == 0 and j != 0:
+                    re[f'{i}_{j}'] = re[f'{i}_{j-1}'] + grid[i][j]
+                elif i != 0 and j == 0:
+                    re[f'{i}_{j}'] = re[f'{i-1}_{j}'] + grid[i][j]
+                else:
+                    re[f'{i}_{j}'] = min([re[f'{i-1}_{j}'], re[f'{i}_{j-1}']]) + grid[i][j]
+        return re[f'{m-1}_{n-1}']
+```
+
+## 70. 爬楼梯
+
+> 假设你正在爬楼梯。需要 `n` 阶你才能到达楼顶。
+>
+> 每次你可以爬 `1` 或 `2` 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+>
+>  
+>
+> **示例 1：**
+>
+> ```
+> 输入：n = 2
+> 输出：2
+> 解释：有两种方法可以爬到楼顶。
+> 1. 1 阶 + 1 阶
+> 2. 2 阶
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：n = 3
+> 输出：3
+> 解释：有三种方法可以爬到楼顶。
+> 1. 1 阶 + 1 阶 + 1 阶
+> 2. 1 阶 + 2 阶
+> 3. 2 阶 + 1 阶
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= n <= 45`
+
+accept 答案：
+
+```python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        '''
+        虽然是easy但好像可以动态规划
+        1. 分解问题
+            f(n)到第n阶的时的爬楼方法总数
+            f(n) = f(n-1) + f(n-2)
+        2. 状态转移方程
+            f(i) = f(i-1) + f(i-2)
+        3. 边界
+            f(1) = 1
+            f(2) = 2 # 1+1 / 2
+        4. 求解
+        '''
+        re = {}
+        re[1] = 1
+        re[2] = 2
+        for i in range(1, n+1):
+            if i == 1 or i == 2:
+                continue
+            else:
+                re[i] = re[i-1] + re[i-2]
+        return re[n]
+```
 
