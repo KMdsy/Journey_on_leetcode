@@ -25,8 +25,8 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.11.23)
-- HOT 100, GO ON! 
+TODOs (Updated at 2022.11.24)
+- https://leetcode.cn/problems/subsets/?favorite=2cktkvj
 
 
 ## 重点算法索引
