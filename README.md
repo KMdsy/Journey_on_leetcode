@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-11-23 23:02:00
+updated: 2022-11-25 23:02:00
 tag:
 - leetcode
 ---
@@ -25,8 +25,8 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.11.24)
-- https://leetcode.cn/problems/subsets/?favorite=2cktkvj
+TODOs (Updated at 2022.11.27)
+- https://leetcode.cn/problems/word-search/description/?favorite=2cktkvj
 
 
 ## 重点算法索引

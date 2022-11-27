@@ -444,3 +444,55 @@ class Solution:
         return re[n]
 ```
 
+## 78. 子集
+
+> 给你一个整数数组 `nums` ，数组中的元素 **互不相同** 。返回该数组所有可能的子集（幂集）。
+>
+> 解集 **不能** 包含重复的子集。你可以按 **任意顺序** 返回解集。
+>
+>  
+>
+> **示例 1：**
+>
+> ```
+> 输入：nums = [1,2,3]
+> 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：nums = [0]
+> 输出：[[],[0]]
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= nums.length <= 10`
+> - `-10 <= nums[i] <= 10`
+> - `nums` 中的所有元素 **互不相同**
+
+accept答案：
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        '''
+        问题拆解为：
+        所有有nums[i]参与的非空子集，都是由nums[i]之前的数字组成的子集中在分别加入nums[i]
+        f(nums[final]) = f(nums[final-1]).item.append(nums[final]) + [nums[final]]
+        '''
+        re = []
+        for i in range(len(nums)):
+            if i > 0:
+                new_re = []
+                for j in range(len(re)):
+                    new_re.append(re[j] + [nums[i]])
+                re = re + new_re
+            re.append([nums[i]]) # 自己
+        re.append([])
+        return re
+```
+
