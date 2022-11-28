@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2022-11-23 22:36:00
+updated: 2022-11-28 22:36:00
 tag:
 - leetcode
 - dynamic programming
@@ -494,5 +494,26 @@ class Solution:
             re.append([nums[i]]) # 自己
         re.append([])
         return re
+```
+
+## 121. 买卖股票的最佳时机
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        '''
+        思路: length很大，应该不能用暴力
+        在第i天买入，j天卖出，利润为prices[j] - prices[i], i < j
+        第i天卖出获得的最大收益f(i) = price[i] - i天之前的最小买入值g[i-1]
+        g[i-1] = min(g[i-2], nums[i-1])
+        动态规划的是i之前最小买入值
+        '''
+        minn = prices[0] # 最小买入
+        maxx = 0 # 最大收益
+        for i in range(1, len(prices)):
+            ref = prices[i] - minn # i
+            minn = min([minn, prices[i]])
+            maxx = max([maxx, ref])
+        return maxx
 ```
 
