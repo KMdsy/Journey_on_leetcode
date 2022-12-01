@@ -25,9 +25,8 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.11.27)
+TODOs (Updated at 2022.12.01)
 - https://leetcode.cn/problems/word-search/description/?favorite=2cktkvj
-
 
 ## 重点算法索引
 
