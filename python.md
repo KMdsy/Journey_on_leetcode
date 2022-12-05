@@ -1,11 +1,30 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-05-18 21:02:00
+updated: 2022-12-05 22:45:00
 tag:
 - leetcode
 - python
 ---
+
+## 内置函数
+
+- 位运算
+
+    - 异或：`x ^ y`
+    - 取反：`x ~ y`
+    - 与、或：`x & y`, `x | y`
+    - 左右移动`n`位：`x >> n`，`x << n`
+
+- 进制转换：
+
+    ![image-20221205224445635](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20221205224445635.png)
+
+    - 0b / 0B --> 二进制字符前缀
+
+    - 0o / 0O --> 八进制字符前缀
+
+    - 0x / 0X --> 十六进制字符前缀
 
 ## List
 
