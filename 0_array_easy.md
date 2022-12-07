@@ -1,7 +1,7 @@
 ---
 title: 数组Array (easy)
 date: 2022-04-11 10:12:00
-updated: 2022-12-01 22:12:00
+updated: 2022-12-07 17:12:00
 tag:
 - leetcode
 - array
@@ -1192,5 +1192,64 @@ class Solution:
                 # 到末尾了
                 return False
         return False
+```
+
+## 283. 移动零
+
+> 给定一个数组 `nums`，编写一个函数将所有 `0` 移动到数组的末尾，同时保持非零元素的相对顺序。
+>
+> **请注意** ，必须在不复制数组的情况下原地对数组进行操作。
+>
+>  
+>
+> **示例 1:**
+>
+> ```
+> 输入: nums = [0,1,0,3,12]
+> 输出: [1,3,12,0,0]
+> ```
+>
+> **示例 2:**
+>
+> ```
+> 输入: nums = [0]
+> 输出: [0]
+> ```
+>
+>  
+>
+> **提示**:
+>
+> - `1 <= nums.length <= 104`
+> - `-231 <= nums[i] <= 231 - 1`
+>
+>  
+>
+> **进阶：**你能尽量减少完成的操作次数吗？
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        '''
+        思路：
+        移动最多次数的方法，就是将一个数字本来要移动N位，但分了N次来操作，每次移动一个位置
+        因此移动次数最少的方法是，在一次遍历的时候就计算出他们在最后答案序列中的位置，然后最后统一移动
+        '''
+        # 计数nums[i]前有几个0, 若nums[i]前有N个0，则移动后的nums[i]应该位于i-N位置
+        zero_num = 0
+        res_list = [] # 记录每个非0的数字，移动前后的位置，item=[before, after]
+        for i, num in enumerate(nums):
+            if num == 0:
+                zero_num += 1
+            else:
+                res_list.append((i, i - zero_num))
+        # 对于所有前后位置不一样的元素，做交换
+        for before, after in res_list:
+            t = nums[after]
+            nums[after] = nums[before]
+            nums[before] = t
 ```
 

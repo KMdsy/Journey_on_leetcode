@@ -1,7 +1,8 @@
 title: Binary Tree 
 date: 2022-08-29 21:00:00
-updated: 2022-11-27 23:00:00
+updated: 2022-12-07 17:00:00
 tag:
+
 - leetcode
 - binary tree
 
@@ -84,6 +85,8 @@ void bfs(TreeNode root) {
     > 对上述形式中的所有左右括号进行定位。
 
 1. **不要返回任何值，在原树上返回**：不要试图新建任何节点，而是在已有节点上**操纵指针**，参考[这个](#flatten)
+
+1. [合并二叉树](#combine_two_tree)：最好再温习一下
 
 ## 题目
 
@@ -512,7 +515,7 @@ class Solution:
 
 ```
 
-## [114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/description/?favorite=2cktkvj) <a name="flatten">📌</a>
+12. [114. 二叉树展开为链表](https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/description/?favorite=2cktkvj) <a name="flatten">📌</a>
 
 ```python
 # Definition for a binary tree node.
@@ -543,5 +546,73 @@ class Solution:
                 prev, curr = route[i-1], route[i]
                 prev.left = None
                 prev.right = curr
+```
+
+13. [226. 翻转二叉树](https://leetcode.cn/problems/invert-binary-tree/description/?favorite=2cktkvj)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        '''
+        思路：
+        从根节点开始，如果存在左右子树，交换之
+        '''
+        def func(root):
+            if root is not None:
+                # exchange
+                t = root.left
+                root.left = root.right
+                root.right = t
+                if root.left is not None:
+                    func(root.left)
+                if root.right is not None:
+                    func(root.right)
+            return root
+        return func(root)
+```
+
+14. [617. 合并二叉树](https://leetcode.cn/problems/merge-two-binary-trees/description/?favorite=2cktkvj) <a name="combine_two_tree">📌</a>
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        # 返回root1好了
+        def merge(node1, node2):
+            if node1 is not None and node2 is not None:
+                node1.val += node2.val
+                if node1.left is not None or node2.left is not None:
+                    if node1.left is None:
+                        node1.left = TreeNode()
+                    merge(node1.left, node2.left)
+                if node1.right is not None or node2.right is not None:
+                    if node1.right is None:
+                        node1.right = TreeNode()
+                    merge(node1.right, node2.right)
+            elif node1 is not None and node2 is None:
+                # 边界条件1: 两个节点之一是最后一个节点，那就不用看后面的字节点了
+                return None
+            elif node1 is None and node2 is not None:
+                # 边界条件1
+                return TreeNode(node2.val)
+            else: 
+                # 边界条件2: 俩节点都是边界了
+                return None
+        res = merge(root1, root2)
+        if root1 is not None:
+            return root1
+        else:
+            return res
 ```
 
