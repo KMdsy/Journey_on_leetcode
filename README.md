@@ -25,8 +25,9 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.12.01)
+TODOs (Updated at 2022.12.08)
 - https://leetcode.cn/problems/word-search/description/?favorite=2cktkvj
+- https://leetcode.cn/problems/diameter-of-binary-tree/?favorite=2cktkvj [easy first]
 
 ## 重点算法索引
 
