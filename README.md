@@ -1,7 +1,8 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-11-25 23:02:00
+updated: 2022-12-
+ 23:02:00
 tag:
 - leetcode
 ---
@@ -25,9 +26,9 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.12.08)
+TODOs (Updated at 2022.12.20)
 - https://leetcode.cn/problems/word-search/description/?favorite=2cktkvj
-- https://leetcode.cn/problems/diameter-of-binary-tree/?favorite=2cktkvj [easy first]
+- 上面的题不是很确定懂没懂，再看看，先吃饭
 
 ## 重点算法索引
 
