@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-12-20 23:02:00
+updated: 2022-12-22 23:02:00
 tag:
 - leetcode
 ---
@@ -28,11 +28,15 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.12.21)
+TODOs (Updated at 2022.12.22)
 
 从2022.12.22开始，跟着labuladong的算法小抄开始，学架构，并按照后文以及leetcode 101的题目列表开始刷类型题
 
 - 动态规划 
+
+TODO: https://leetcode.cn/problems/01-matrix/solutions/202012/01ju-zhen-by-leetcode-solution/
+
+
 - 树、图
 - 分治
 - 双指针
