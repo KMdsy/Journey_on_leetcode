@@ -28,15 +28,13 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2022.12.26)
+TODOs (Updated at 2023.01.06)
 
 从2022.12.22开始，跟着labuladong的算法小抄开始，学架构，并按照后文以及leetcode 101的题目列表开始刷类型题
 
 - 动态规划 
 
-TODO: https://leetcode.cn/problems/01-matrix/solutions/202012/01ju-zhen-by-leetcode-solution/
-
-TODO: https://leetcode.cn/problems/maximal-square/
+分割类问题
 
 
 - 树、图
