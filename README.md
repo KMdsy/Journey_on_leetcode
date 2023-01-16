@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-01-12 23:02:00
+updated: 2022-01-16 23:02:00
 tag:
 - leetcode
 ---
@@ -28,13 +28,16 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2023.01.12)
+TODOs (Updated at 2023.01.16)
 
 从2022.12.22开始，跟着labuladong的算法小抄开始，学架构，并按照后文以及leetcode 101的题目列表开始刷类型题
 
 - 动态规划 
     - 分割类问题
         - 理解一下二分查找的方法：https://leetcode.cn/problems/longest-increasing-subsequence/solutions/147667/zui-chang-shang-sheng-zi-xu-lie-by-leetcode-soluti/
+    - 背包问题
+        - 理解01背包的优化方法
+        - 完全背包问题
 
 
 - 树、图
