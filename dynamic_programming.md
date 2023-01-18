@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2023-01-16 23:36:00
+updated: 2023-01-18 23:36:00
 tag:
 - leetcode
 - dynamic programming
@@ -50,7 +50,7 @@ tag:
 
 
 
-### 背包问题(416, 474)
+### 背包问题(0-1: 416, 474; 完全: 322, 518)
 
 > 给你一个可装载重量为`W`的背包和`N`个物品，每个物品有重量和价值两个属性。其中第`i`个物品的重量为`wt[i]`，价值为`val[i]`，现在让你用这个背包装物品，最多能装的价值是多少？
 
@@ -1393,5 +1393,148 @@ class Solution:
                     else:
                         dp[i][mm][nn] = dp[i-1][mm][nn]
         return dp[l][m][n]
+```
+
+## 518. 零钱兑换 II
+
+> 给你一个整数数组 `coins` 表示不同面额的硬币，另给一个整数 `amount` 表示总金额。
+>
+> 请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 `0` 。
+>
+> 假设每一种面额的硬币有无限个。 
+>
+> 题目数据保证结果符合 32 位带符号整数。
+>
+> **示例 1：**
+>
+> ```
+> 输入：amount = 5, coins = [1, 2, 5]
+> 输出：4
+> 解释：有四种方式可以凑成总金额：
+> 5=5
+> 5=2+2+1
+> 5=2+1+1+1
+> 5=1+1+1+1+1
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：amount = 3, coins = [2]
+> 输出：0
+> 解释：只用面额 2 的硬币不能凑成总金额 3 。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：amount = 10, coins = [10] 
+> 输出：1
+> ```
+>
+> **提示：**
+>
+> - `1 <= coins.length <= 300`
+> - `1 <= coins[i] <= 5000`
+> - `coins` 中的所有值 **互不相同**
+> - `0 <= amount <= 5000`
+
+```python
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        '''
+        动态规划 - 完全背包
+        1. 状态：硬币i，金额j，dp[i][j]: 使用第i-1个硬币的时候凑出的组合数
+        2. 选择：是否装进背包
+        3. 转移：
+            使用i-1：dp[i][j] = dp[i][j-coins[i-1]] 这里和0-1不同
+            不使用i-1：dp[i][j] = dp[i-1][j]
+            dp[i][j] = dp[i-1][j-coins[i-1]] + dp[i-1][j]
+        '''
+        n = len(coins)
+        dp = [[0]*(amount+1) for _ in range(n+1)]
+        # dp[0][j] = 0
+        # dp[i][0] = 1
+        for i in range(0, n+1):
+            dp[i][0] = 1
+
+        for i in range(1, n+1):
+            for j in range(1, amount+1):
+                if j - coins[i-1] >= 0:
+                    dp[i][j] = dp[i][j-coins[i-1]] + dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return dp[n][amount]
+```
+
+## 322. 零钱兑换
+
+> 给你一个整数数组 `coins` ，表示不同面额的硬币；以及一个整数 `amount` ，表示总金额。
+>
+> 计算并返回可以凑成总金额所需的 **最少的硬币个数** 。如果没有任何一种硬币组合能组成总金额，返回 `-1` 。
+>
+> 你可以认为每种硬币的数量是无限的。
+>
+> **示例 1：**
+>
+> ```
+> 输入：coins = [1, 2, 5], amount = 11
+> 输出：3 
+> 解释：11 = 5 + 5 + 1
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：coins = [2], amount = 3
+> 输出：-1
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：coins = [1], amount = 0
+> 输出：0
+> ```
+>
+> **提示：**
+>
+> - `1 <= coins.length <= 12`
+> - `1 <= coins[i] <= 231 - 1`
+> - `0 <= amount <= 104`
+
+```python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        '''
+        动态规划：背包 
+        dp[i][j]: 遍历到coins[i-1]，总金额为j时，所需的最少硬币个数
+        - 如果使用coins[i-1]: dp[i][j] = dp[i][j-coins[i-1]] + 1
+        - 如果不使用: dp[i][j] = dp[i-1][j]
+        dp[i][j] = min([dp[i][j-coins[i-1]], dp[i-1][j]])
+        '''
+        n = len(coins)
+        dp = [[amount+1]*(amount+1) for _ in range(n+1)]
+        # dp[i][0] = 0
+        # dp[0][j] = -1
+        # dp[0][0] = 0
+        dp[0][0] = 0
+        for i in range(0, n+1):
+            dp[i][0] = 0 # 要凑出0元，需要0个
+
+        for i in range(1, n+1):
+            for j in range(1, amount+1):
+                if j-coins[i-1] >= 0:
+                    dp[i][j] = min([dp[i][j-coins[i-1]]+1, dp[i-1][j]])
+                else:
+                    dp[i][j] = dp[i-1][j]
+        return -1 if dp[n][amount] == amount+1 else dp[n][amount]
+      '''
+      这里注意，我们把dp 数组初始化为amount + 1 而不是-1 的原因是，在动态规划过程中有求
+最小值的操作，如果初始化成-1 则会导致结果始终为-1。至于为什么取这个值，是因为i 最大可
+以取amount，而最多的组成方式是只用1 元硬币，因此amount + 1 一定大于所有可能的组合方
+式，取最小值时一定不会是它。在动态规划完成后，若结果仍然是此值，则说明不存在满足条件
+的组合方法，返回-1。
+      '''
 ```
 
