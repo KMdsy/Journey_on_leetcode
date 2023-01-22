@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2023-01-18 23:36:00
+updated: 2023-01-23 23:36:00
 tag:
 - leetcode
 - dynamic programming
@@ -42,13 +42,11 @@ tag:
 
 
 
-### 子序列问题(1143, 300)
+### 子序列问题(一维dp数组:1143, 300, 二维dp数组: 1312,516,72)
 
-对于子序列问题，第一种动态规划方法是，定义一个`dp` 数组，其中`dp[i]` 表示以`i `结尾的子序列的性质。在处理好每个位置后，统计一遍各个位置的结果即可得到题目要求的结果。
+![image-20230123001031189](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230123001031189.png)
 
-第二种动态规划方法是，定义一个`dp `数组，其中`dp[i] `表示到位置`i `为止的子序列的性质，并不必须以`i `结尾。这样`dp `数组的最后一位结果即为题目所求，不需要再对每个位置进行统计。
-
-
+![image-20230123001048885](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230123001048885.png)
 
 ### 背包问题(0-1: 416, 474; 完全: 322, 518)
 
@@ -1536,5 +1534,192 @@ class Solution:
 式，取最小值时一定不会是它。在动态规划完成后，若结果仍然是此值，则说明不存在满足条件
 的组合方法，返回-1。
       '''
+```
+
+## 72. 编辑距离
+
+> 给你两个单词 `word1` 和 `word2`， *请返回将 `word1` 转换成 `word2` 所使用的最少操作数* 。
+>
+> 你可以对一个单词进行如下三种操作：
+>
+> - 插入一个字符
+> - 删除一个字符
+> - 替换一个字符 
+>
+> **示例 1：**
+>
+> ```
+> 输入：word1 = "horse", word2 = "ros"
+> 输出：3
+> 解释：
+> horse -> rorse (将 'h' 替换为 'r')
+> rorse -> rose (删除 'r')
+> rose -> ros (删除 'e')
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：word1 = "intention", word2 = "execution"
+> 输出：5
+> 解释：
+> intention -> inention (删除 't')
+> inention -> enention (将 'i' 替换为 'e')
+> enention -> exention (将 'n' 替换为 'x')
+> exention -> exection (将 'n' 替换为 'c')
+> exection -> execution (插入 'u')
+> ```
+>
+> **提示：**
+>
+> - `0 <= word1.length, word2.length <= 500`
+> - `word1` 和 `word2` 由小写英文字母组成
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        '''
+        编辑距离：编辑距离是对称的
+        '''
+        # 按照套路来写
+        # 动态规划
+        m = len(word1)
+        n = len(word2)
+        if m == 0: return n
+        if n == 0: return m
+        dp = [[0] * (n+1) for _ in range(m+1)]
+        for i in range(m+1):
+            dp[i][0] = i # 边界，当一个指针为空，则编辑距离就是另一个字符串的长度
+        for j in range(n+1):
+            dp[0][j] = j 
+
+        # 遍历dp table
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                # word1[i-1], word2[j-1]
+                if word1[i-1] == word2[j-1]:
+                    # do nothing 
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = min([
+                        dp[i][j-1] + 1, # i指针位置增加一个与j指针相同的字母
+                        dp[i-1][j] + 1, # 删去i指针
+                        dp[i-1][j-1] + 1 # i指针改为j指针内容
+                    ])
+        return dp[m][n]
+```
+
+## 516. 最长回文子序列
+
+> 给你一个字符串 `s` ，找出其中最长的回文子序列，并返回该序列的长度。
+>
+> 子序列定义为：不改变剩余字符顺序的情况下，删除某些字符或者不删除任何字符形成的一个序列。
+>
+> **示例 1：**
+>
+> ```
+> 输入：s = "bbbab"
+> 输出：4
+> 解释：一个可能的最长回文子序列为 "bbbb" 。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：s = "cbbd"
+> 输出：2
+> 解释：一个可能的最长回文子序列为 "bb" 。
+> ```
+>
+> **提示：**
+>
+> - `1 <= s.length <= 1000`
+> - `s` 仅由小写英文字母组成
+
+```python
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        '''
+        动态规划自己写一下试试：
+        dp[i][j]: s的下标范围i-j内，最长回文子序列的长度，i <= j
+        base case: dp[i][i] = 1
+        状态转移：
+            如果s[i] == s[j]，则他们有资格成为新子串的首尾，dp[i][j] = dp[i+1][j-1] + 2
+            s[i] != s[j]，则他们不能成为新子串的首尾，dp[i][j] = max([dp[i+1][j], dp[i][j-1]])      
+            根据转移方程，i要从大到小遍历，j要送小到大遍历      
+        '''
+        n = len(s)
+        dp = [[0] * n for _ in range(n)]
+        for i in range(n):
+            dp[i][i] = 1
+        
+        for i in range(n, -1, -1):
+            for j in range(i+1, n):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i+1][j-1] + 2
+                else:
+                    dp[i][j] = max([dp[i+1][j], dp[i][j-1]])
+        return dp[0][n-1]
+```
+
+## 1312. 让字符串成为回文串的最少插入次数
+
+> 给你一个字符串 `s` ，每一次操作你都可以在字符串的任意位置插入任意字符。
+>
+> 请你返回让 `s` 成为回文串的 **最少操作次数** 。
+>
+> 「回文串」是正读和反读都相同的字符串。
+>
+> **示例 1：**
+>
+> ```
+> 输入：s = "zzazz"
+> 输出：0
+> 解释：字符串 "zzazz" 已经是回文串了，所以不需要做任何插入操作。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：s = "mbadm"
+> 输出：2
+> 解释：字符串可变为 "mbdadbm" 或者 "mdbabdm" 。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：s = "leetcode"
+> 输出：5
+> 解释：插入 5 个字符后字符串变为 "leetcodocteel" 。
+> ```
+>
+> **提示：**
+>
+> - `1 <= s.length <= 500`
+> - `s` 中所有字符都是小写字母。
+
+```python
+class Solution:
+    def minInsertions(self, s: str) -> int:
+        '''
+        动态规划
+        dp[i][j]表示使得s[i,...,j]成为回文串的最少插入次数
+        i <= j
+        base case: i == j: dp[i][i] = 0
+        状态转移方程：
+            如果s[i] == s[j]，dp[i][j] = dp[i+1][j-1]
+            否则，需要一次操作使得s[i] = s[j], dp[i][j] = min([dp[i+1][j], dp[i][j-1]]) + 1 (把s[i+1,...,j]和s[i,...j-1]变成回文串，然后找编辑次数最少的)
+        '''
+
+        n = len(s)
+        dp = [[0] * n for _ in range(n)]
+        for i in range(n-1, -1, -1):
+            for j in range(i+1, n):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i+1][j-1]
+                else:
+                    dp[i][j] = min([dp[i+1][j], dp[i][j-1]]) + 1
+        return dp[0][n-1]
 ```
 

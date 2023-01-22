@@ -28,7 +28,7 @@ tag:
 
 ## 刷题之旅从现在开始
 
-TODOs (Updated at 2023.01.16)
+TODOs (Updated at 2023.01.23)
 
 从2022.12.22开始，跟着labuladong的算法小抄开始，学架构，并按照后文以及leetcode 101的题目列表开始刷类型题
 
@@ -39,6 +39,7 @@ TODOs (Updated at 2023.01.16)
         - 理解01背包的优化方法
         - 完全背包问题
     - labuladong: 子序列类型问题套路
+    - labuladong: 贪心类型问题
 
 
 - 树、图
