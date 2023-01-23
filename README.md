@@ -1,7 +1,7 @@
 ---
 title: 从零开始的leetcode之旅
 date: 2022-04-11 10:12:00
-updated: 2022-01-18 23:02:00
+updated: 2022-01-24 23:02:00
 tag:
 - leetcode
 ---
@@ -36,10 +36,14 @@ TODOs (Updated at 2023.01.23)
     - 分割类问题
         - 理解一下二分查找的方法：https://leetcode.cn/problems/longest-increasing-subsequence/solutions/147667/zui-chang-shang-sheng-zi-xu-lie-by-leetcode-soluti/
     - 背包问题
-        - 理解01背包的优化方法
-        - 完全背包问题
-    - labuladong: 子序列类型问题套路
+        - 理解01背包的优化方法✅
+        - 完全背包问题✅
+    - labuladong: 子序列类型问题套路✅
     - labuladong: 贪心类型问题
+        - [如何运用贪心思想玩跳跃游戏](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485087&idx=1&sn=ddbed992e5ad8f1aa3b3d4afcb17889b&scene=21#wechat_redirect)
+        - [扫描线技巧：安排会议室](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247491640&idx=1&sn=60344b057f19a4765a15ed17cb7c8018&scene=21#wechat_redirect)
+        - [当老司机学会了贪心算法](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247491696&idx=1&sn=f3ddc1f4a7e07e4184aa08f295c7e02c&scene=21#wechat_redirect)
+    - labuladong: 用动态规划玩游戏
 
 
 - 树、图

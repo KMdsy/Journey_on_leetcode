@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-12-05 22:45:00
+updated: 2022-01-24 22:45:00
 tag:
 - leetcode
 - python
@@ -31,7 +31,7 @@ tag:
 - `res = list.pop()`，移除列表中指定索引的值，即`list.pop(index)`，默认移除最后一个值，函数返回被移除的值。
 - `list.insert(idx, value)`，向列表中的`idx`位置插入值`value`，其后的值自动向后移动。
 - ⚠️ 警惕列表的创建方式：使用`[0] * m`创建的列表，实质上是分配了`m`个存储了常数的内存单元，此时这`m`个位置可以单独索引。但使用二级乘法`[[0] * m] * n`则是将刚才的`m`个内存复制了`n`遍，修改`mat[i][j]`会导致所有`mat[i-k][j]`都发生变化。
-- 
+- `list.sort(key=lambda x:x[-1], reverse=True)`：对list item不为基础数据类型的，用list item中的[-1]项对list做排序，变体`list.sort(key=lambda x:len(x))`：对list item为string的列表，按照string长度排序。
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2023-01-23 23:36:00
+updated: 2023-01-24 23:36:00
 tag:
 - leetcode
 - dynamic programming
@@ -151,6 +151,20 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
     return dp[N][W];
 }
 ```
+
+### 贪心算法
+
+什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。
+
+比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满足贪心选择性质，那么可以进一步降低时间复杂度，达到线性级别的。
+
+什么是贪心选择性质呢，简单说就是：每一步都做出一个局部最优的选择，最终的结果就是全局最优。注意哦，这是一种特殊性质，其实只有一小部分问题拥有这个性质。
+
+比如你面前放着 100 张人民币，你只能拿十张，怎么才能拿最多的面额？显然每次选择剩下钞票中面值最大的一张，最后你的选择一定是最优的。
+
+然而，大部分问题都明显不具有贪心选择性质。比如打斗地主，对手出对儿三，按照贪心策略，你应该出尽可能小的牌刚好压制住对方，但现实情况我们甚至可能会出王炸。这种情况就不能用贪心算法，而得使用动态规划解决，参见前文 [动态规划解决博弈问题](http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484731&idx=4&sn=83fdd556c0d7c638b7a0df72129c0268&chksm=9bd7fb33aca07225f0528761352f1767de44debe2bf5210245f3d2d17b7ec23a70ef574505ef&scene=21#wechat_redirect)。
+
+
 
 
 
@@ -1721,5 +1735,224 @@ class Solution:
                 else:
                     dp[i][j] = min([dp[i+1][j], dp[i][j-1]]) + 1
         return dp[0][n-1]
+```
+
+
+
+
+
+\## 435. 无重叠区间
+
+> 给定一个区间的集合 `intervals` ，其中 `intervals[i] = [starti, endi]` 。返回 *需要移除区间的最小数量，使剩余区间互不重叠* 。
+>
+> **示例 1:**
+>
+> ```
+> 输入: intervals = [[1,2],[2,3],[3,4],[1,3]]
+> 输出: 1
+> 解释: 移除 [1,3] 后，剩下的区间没有重叠。
+> ```
+>
+> **示例 2:**
+>
+> ```
+> 输入: intervals = [ [1,2], [1,2], [1,2] ]
+> 输出: 2
+> 解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。
+> ```
+>
+> **示例 3:**
+>
+> ```
+> 输入: intervals = [ [1,2], [2,3] ]
+> 输出: 0
+> 解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
+> ```
+>
+> **提示:**
+>
+> - `1 <= intervals.length <= 105`
+> - `intervals[i].length == 2`
+> - `-5 * 10^4 <= starti < endi <= 5 * 10^4`
+
+```python
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        '''
+        问题转化为，选取最多不重合的区间，贪心：每次选取结束的最早的区间
+        1. 从区间集合 intvs 中选择一个区间 x，这个 x 是在当前所有区间中结束最早的（end 最小）。
+        2. 把所有与 x 区间相交的区间从区间集合 intvs 中删除。
+        3. 重复步骤 1 和 2，直到 intvs 为空为止。之前选出的那些 x 就是最大不相交子集。
+        '''
+        intervals.sort(key=lambda x: x[1]) # 按照结束时间做排序
+        cur_end = intervals[0][1]
+        n = len(intervals)
+        res = 1 # 最少有一个
+        for i in range(1, n):
+            if intervals[i][0] >= cur_end:
+                cur_end = intervals[i][1]
+                res += 1
+        
+        return n - res
+
+```
+
+## 452. 用最少数量的箭引爆气球
+
+> 有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 `points` ，其中`points[i] = [xstart, xend]` 表示水平直径在 `xstart` 和 `xend`之间的气球。你不知道气球的确切 y 坐标。
+>
+> 一支弓箭可以沿着 x 轴从不同点 **完全垂直** 地射出。在坐标 `x` 处射出一支箭，若有一个气球的直径的开始和结束坐标为 `x``start`，`x``end`， 且满足  `xstart ≤ x ≤ x``end`，则该气球会被 **引爆** 。可以射出的弓箭的数量 **没有限制** 。 弓箭一旦被射出之后，可以无限地前进。
+>
+> 给你一个数组 `points` ，*返回引爆所有气球所必须射出的 **最小** 弓箭数* 。
+>
+> **示例 1：**
+>
+> ```
+> 输入：points = [[10,16],[2,8],[1,6],[7,12]]
+> 输出：2
+> 解释：气球可以用2支箭来爆破:
+> -在x = 6处射出箭，击破气球[2,8]和[1,6]。
+> -在x = 11处发射箭，击破气球[10,16]和[7,12]。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：points = [[1,2],[3,4],[5,6],[7,8]]
+> 输出：4
+> 解释：每个气球需要射出一支箭，总共需要4支箭。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：points = [[1,2],[2,3],[3,4],[4,5]]
+> 输出：2
+> 解释：气球可以用2支箭来爆破:
+> - 在x = 2处发射箭，击破气球[1,2]和[2,3]。
+> - 在x = 4处射出箭，击破气球[3,4]和[4,5]。
+> ```
+>
+> **提示:**
+>
+> - `1 <= points.length <= 10^5`
+> - `points[i].length == 2`
+> - `-2^31 <= xstart < xend <= 2^31 - 1`
+
+```python
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        '''
+        贪心思路：将所有区间按结束坐标做排列
+        1. 先假设在恰当的位置打穿最左边的气球
+        2. 排除掉所有和最左侧气球重合的气球
+        3. 重复第一步
+        '''
+        points.sort(key=lambda x: x[-1])
+        res = 1 # 最少一支箭
+        cur_end = points[0][-1]
+        n = len(points)
+        for i in range(1, n):
+            if points[i][0] > cur_end: # 要不擦边才算没有射破
+                cur_end = points[i][-1]
+                res += 1
+        return res
+```
+
+## 1024. 视频拼接
+
+> 你将会获得一系列视频片段，这些片段来自于一项持续时长为 `time` 秒的体育赛事。这些片段可能有所重叠，也可能长度不一。
+>
+> 使用数组 `clips` 描述所有的视频片段，其中 `clips[i] = [starti, endi]` 表示：某个视频片段开始于 `starti` 并于 `endi` 结束。
+>
+> 甚至可以对这些片段自由地再剪辑：
+>
+> - 例如，片段 `[0, 7]` 可以剪切成 `[0, 1] + [1, 3] + [3, 7]` 三部分。
+>
+> 我们需要将这些片段进行再剪辑，并将剪辑后的内容拼接成覆盖整个运动过程的片段（`[0, time]`）。返回所需片段的最小数目，如果无法完成该任务，则返回 `-1` 。
+>
+> **示例 1：**
+>
+> ```
+> 输入：clips = [[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]], time = 10
+> 输出：3
+> 解释：
+> 选中 [0,2], [8,10], [1,9] 这三个片段。
+> 然后，按下面的方案重制比赛片段：
+> 将 [1,9] 再剪辑为 [1,2] + [2,8] + [8,9] 。
+> 现在手上的片段为 [0,2] + [2,8] + [8,10]，而这些覆盖了整场比赛 [0, 10]。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：clips = [[0,1],[1,2]], time = 5
+> 输出：-1
+> 解释：
+> 无法只用 [0,1] 和 [1,2] 覆盖 [0,5] 的整个过程。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：clips = [[0,1],[6,8],[0,2],[5,6],[0,4],[0,3],[6,7],[1,3],[4,7],[1,4],[2,5],[2,6],[3,4],[4,5],[5,7],[6,9]], time = 9
+> 输出：3
+> 解释： 
+> 选取片段 [0,4], [4,7] 和 [6,9] 。
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= clips.length <= 100`
+> - `0 <= starti <= endi <= 100`
+> - `1 <= time <= 100`
+
+```python
+class Solution:
+    def videoStitching(self, clips: List[List[int]], time: int) -> int:
+        '''
+        视频按照开始时间的升序做排序，开始时间相同的按结束时间降序排序
+        1. 选最先开始的片段
+        2. 开始时间早于或等于当前结束时间，并最晚结束的片段
+        3. 重复2直到覆盖所有片段
+        '''
+        # 排序，按开始时间归类
+        sorted_clips = {} # key: start time, value: list
+        for start, end in clips:
+            if sorted_clips.get(start) is None:
+                sorted_clips[start] = []
+            sorted_clips[start].append([start, end])
+        # 同时开始的片段，按结束时间降序排列
+        for k, v in sorted_clips.items():
+            sorted_clips[k].sort(key=lambda x:x[-1], reverse=True)
+        # 按开始时间升序排列
+        ks = list(sorted_clips.keys())
+        ks.sort()
+        new_clips = []
+        for k in ks:
+            new_clips += sorted_clips[k]
+        
+        if new_clips[0][0] > 0:
+            return -1
+        n = len(new_clips)
+        cur_start, cur_end = new_clips[0][0], new_clips[0][-1]
+        res = 1
+        sel_idx = 0
+
+        while cur_end < time and sel_idx < n:
+            # 选sel_idx+1:n中最晚结束的
+            max_end = -1
+            tmp = -1 # 最晚结束的那个项目的序号
+            for j in range(sel_idx+1, n):
+                if new_clips[j][0] <= cur_end and new_clips[j][-1] > cur_end and new_clips[j][-1] > max_end:
+                    max_end = new_clips[j][-1]
+                    tmp = j
+            if tmp == -1: return -1 # 选不出能够接上已有视频的片段
+            cur_end = new_clips[tmp][-1]
+            sel_idx = tmp
+            res += 1
+        return res
 ```
 
