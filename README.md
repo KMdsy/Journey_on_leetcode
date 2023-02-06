@@ -40,7 +40,7 @@ TODOs (Updated at 2023.01.23)
         - 完全背包问题✅
     - labuladong: 子序列类型问题套路✅
     - labuladong: 贪心类型问题
-        - [如何运用贪心思想玩跳跃游戏](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485087&idx=1&sn=ddbed992e5ad8f1aa3b3d4afcb17889b&scene=21#wechat_redirect)
+        - [如何运用贪心思想玩跳跃游戏](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485087&idx=1&sn=ddbed992e5ad8f1aa3b3d4afcb17889b&scene=21#wechat_redirect)✅
         - [扫描线技巧：安排会议室](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247491640&idx=1&sn=60344b057f19a4765a15ed17cb7c8018&scene=21#wechat_redirect)
         - [当老司机学会了贪心算法](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247491696&idx=1&sn=f3ddc1f4a7e07e4184aa08f295c7e02c&scene=21#wechat_redirect)
     - labuladong: 用动态规划玩游戏
