@@ -172,9 +172,9 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
     if dp[i][j] <= 0: dp[i][j] = 1 # 如果最少需要的血量小于等于0，此时意味着i，j位置有血瓶，那保证骑士此时有血即可，1
     ```
 
-    
+- 贪吃蛇游戏：1210. 穿过迷宫的最少移动次数
 
-
+    ![image-20230207222717460](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230207222717460.png)
 
 ### 贪心算法 (时间规划问:435,452,1024; 跳跃游戏:55,45)
 
@@ -2036,5 +2036,115 @@ class Solution:
                 if dp[i][j] <= 0:
                     dp[i][j] = 1
         return dp[0][0]
+```
+
+### 1210. 穿过迷宫的最少移动次数
+
+> 你还记得那条风靡全球的贪吃蛇吗？
+>
+> 我们在一个 `n*n` 的网格上构建了新的迷宫地图，蛇的长度为 2，也就是说它会占去两个单元格。蛇会从左上角（`(0, 0)` 和 `(0, 1)`）开始移动。我们用 `0` 表示空单元格，用 1 表示障碍物。蛇需要移动到迷宫的右下角（`(n-1, n-2)` 和 `(n-1, n-1)`）。
+>
+> 每次移动，蛇可以这样走：
+>
+> - 如果没有障碍，则向右移动一个单元格。并仍然保持身体的水平／竖直状态。
+> - 如果没有障碍，则向下移动一个单元格。并仍然保持身体的水平／竖直状态。
+> - 如果它处于水平状态并且其下面的两个单元都是空的，就顺时针旋转 90 度。蛇从（`(r, c)`、`(r, c+1)`）移动到 （`(r, c)`、`(r+1, c)`）。
+>     <img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/09/28/image-2.png" alt="img" style="zoom:33%;" />
+> - 如果它处于竖直状态并且其右面的两个单元都是空的，就逆时针旋转 90 度。蛇从（`(r, c)`、`(r+1, c)`）移动到（`(r, c)`、`(r, c+1)`）。
+>     <img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/09/28/image-1.png" alt="img" style="zoom: 33%;" />
+>
+> 返回蛇抵达目的地所需的最少移动次数。
+>
+> 如果无法到达目的地，请返回 `-1`。
+>
+>  
+>
+> **示例 1：**
+>
+> **<img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/09/28/image.png" alt="img" style="zoom:33%;" />**
+>
+> ```
+> 输入：grid = [[0,0,0,0,0,1],
+>                [1,1,0,0,1,0],
+>                [0,0,0,0,1,1],
+>                [0,0,1,0,1,0],
+>                [0,1,1,0,0,0],
+>                [0,1,1,0,0,0]]
+> 输出：11
+> 解释：
+> 一种可能的解决方案是 [右, 右, 顺时针旋转, 右, 下, 下, 下, 下, 逆时针旋转, 右, 下]。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：grid = [[0,0,1,1,1,1],
+>                [0,0,0,0,1,1],
+>                [1,1,0,0,0,1],
+>                [1,1,1,0,0,1],
+>                [1,1,1,0,0,1],
+>                [1,1,1,0,0,0]]
+> 输出：9
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `2 <= n <= 100`
+> - `0 <= grid[i][j] <= 1`
+> - 蛇保证从空单元格开始出发。
+
+```python
+class Solution:
+    def minimumMoves(self, grid: List[List[int]]) -> int:
+        '''
+        动态规划：
+        dp[i][j][s]: 尾移动到位置(i,j)时，所用的最少移动次数，s为蛇的运动方式，1为水平，0为竖直
+        之所以用尾巴的位置，因为这可以使得在旋转的时候坐标不变
+        转移方程：
+        if grid[i][j] == 1:
+            dp[i][j][0] = -1
+            dp[i][j][1] = -1
+        else:
+            dp[i][j][0] = min([
+                dp[i][j-1][0], # case1
+                dp[i][j][1] # case4
+            ]) + 1
+            dp[i][j][1] = min([
+                dp[i-1][j][1], # case2
+                dp[i][j][0], # case3
+            ]) + 1
+        注意，需要根据障碍物和尾巴位置确定转移方式
+        '''
+        
+        n = len(grid)
+        dp = [[[1e5, 1e5] for _ in range(n)] for _ in range(n)]
+        dp[0][0][0] = 0
+        shuipin, chuizhi = True, True
+        for i in range(n):
+            for j in range(n):
+                # 判断到达(i, j)位置和上一位置之间的关系，只要满足身体所在位置是空的即可
+                if j + 1 < n and grid[i][j] == 0 and grid[i][j+1] == 0: shuipin = True
+                else: shuipin = False
+                if i + 1 < n and grid[i][j] == 0 and grid[i + 1][j] == 0: chuizhi = True
+                else: chuizhi = False
+
+                if i - 1 >= 0 and chuizhi:
+                    dp[i][j][1] = min([dp[i][j][1], dp[i-1][j][1] + 1]) # case 2, 向下移动一个单元格
+                if i - 1 >= 0 and shuipin:
+                    dp[i][j][0] = min([dp[i][j][0], dp[i-1][j][0] + 1])
+                if j - 1 >= 0 and shuipin:
+                    dp[i][j][0] = min([dp[i][j][0], dp[i][j-1][0] + 1]) # case 1，向右移动一个单元格
+                if j - 1 >= 0 and chuizhi:
+                    dp[i][j][1] = min([dp[i][j][1], dp[i][j-1][1] + 1])
+
+                if chuizhi and shuipin and grid[i+1][j+1] == 0:
+                    dp[i][j][1] = min([dp[i][j][1], dp[i][j][0] + 1]) # case 4
+                    dp[i][j][0] = min([dp[i][j][0], dp[i][j][1] + 1]) # case 3
+        if dp[n-1][n-2][0] == 1e5:
+            return -1
+        else:
+            return dp[n-1][n-2][0]
 ```
 
