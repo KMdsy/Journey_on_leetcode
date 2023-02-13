@@ -18,6 +18,7 @@ tag:
     - **2022.02.10:** 剑指第一天的两个easy，好像没搞懂官方题解的用意，看看✅
     - **2022.02.11**: LFU算法，看懂了但是没有AC，完了看看
     - **2022.02.12**: [买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/description/) DP写对了，但超时了，看看优化方法
+    - **2022.02.13**: 结合LFU对collections中的几个哈希字典的概念弄清
 
 - 多在牛客上看看**情景题、应用题**
 

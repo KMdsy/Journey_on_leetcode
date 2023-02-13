@@ -7,7 +7,7 @@ tag:
 - python
 ---
 
-## 内置函数
+## 1. 内置函数
 
 - 位运算
 
@@ -26,7 +26,7 @@ tag:
 
     - 0x / 0X --> 十六进制字符前缀
 
-## List
+## 2. List
 
 - `res = list.pop()`，移除列表中指定索引的值，即`list.pop(index)`，默认移除最后一个值，函数返回被移除的值。
 - `list.insert(idx, value)`，向列表中的`idx`位置插入值`value`，其后的值自动向后移动。
@@ -35,7 +35,7 @@ tag:
 
 
 
-## Dictionary
+## 3. Dictionary
 
 - `res = dict.get(key)`: 返回指定键的值，若查询不到，返回`None`。
 - `res = dict.pop(key)`：删除指定键，并返回该键对应的值。
@@ -45,21 +45,20 @@ tag:
 
 
 
-
-## Set
+## 4. Set
 
 - `set.add(x)`：将`x`添加到集合中
 - `set.remove(x)`：将值`x`从集合中去除
 
 
 
-## Collections
+## 5. Collections
 
 `collections`拓展了python内置数据类型，提供更方便的方法与高性能存储类型。比如基础的字典是不支持顺序的，collections模块的OrderedDict类构建的字典可以支持顺序。
 
 ⚠️：在leetcode中，无需`import`，即可使用该标准库，例如`queue = collection.deque([p])`
 
-### 概览
+### 5.1 概览
 
 该库包括9种数据类型
 
@@ -82,9 +81,9 @@ print(collections.__all__)
 | UserList     | 封装了列表对象，简化了列表子类化                             |
 | UserString   | 封装了字符串对象，简化了字符串子类化（中文版翻译有误）       |
 
-### 常用类
+### 5.2 常用类
 
-#### deque
+#### 5.2.1 deque
 
 常用于**栈**（stack）和**队列**（queue），在两端追加元素时的复杂度都近似为$O(1)$，以下梳理基础方法。
 
@@ -99,7 +98,32 @@ print(collections.__all__)
 - `q.reverse()`：元素逆序
 - `q.rotate(x)`：向右循环移动`x`个位置，`x < 0`则为向左移动
 
-## Type Hints
+#### 5.2.2 Counter
+
+一个计数器，通过对**对象（iterable / mapping / keyword args）**哈希化，来计数迭代器中的内容
+
+```python
+c = Counter()                           # a new, empty counter
+c = Counter('gallahad')                 # iterable -> Counter({'a': 3, 'l': 2, 'g': 1, 'h': 1, 'd': 1})
+c = Counter({'red': 4, 'blue': 2})      # mapping -> Counter({'red': 4, 'blue': 2})
+c = Counter(cats=4, dogs=8)            # keyword args -> Counter({'dogs': 8, 'cats': 4})
+# call
+
+```
+
+常用方法
+
+- `c.elements`: 返回一个无序迭代器，其中每个元素`k`被重复`v`次
+- `c.most_common(n)`: 返回出现次数最多的`n`个`kv`对，如：，mapping例子中，`c.most_common(1) -> [('red', 4)]`
+- `c.update(iterable-or-mapping)`: 用新的内容更新counter，**注意，新的计数将会加在旧的计数器上**
+
+一些运算符案例
+
+![image-20230213112119814](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230213112119814.png)
+
+
+
+## 6. Type Hints
 
 **[python3.5特性]** 基础的注解方法：`def greeting(name: str) -> str:`，用<u>冒号</u>与<u>箭头</u>指定了方法的输入类型与输出类型。
 
