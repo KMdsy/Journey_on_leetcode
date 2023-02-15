@@ -121,6 +121,38 @@ c = Counter(cats=4, dogs=8)            # keyword args -> Counter({'dogs': 8, 'ca
 
 ![image-20230213112119814](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230213112119814.png)
 
+#### 5.2.3 OrderedDict
+
+按照插入顺序存储的有序字典，擅长重新排序操作，也可以根据`key`或者`value`排序。在[leetcode LRU](https://leetcode.cn/problems/lru-cache/)部分有用到。
+
+- `od.popitem(last=True)`：按照LIFO的顺序弹出最后一个元素（最新加入的元素）；当`last=False` ，按照FIFO顺序弹出第一个加入的元素。
+- `od.move_to_end(key, last=True)`：移动给定 `key`到最后一个位置；当`last=False`，移动到第一个位置。如果`key`不存在，return KeyError。
+- `od.reversed()`：返回一个逆序的迭代器
+- `od.items()`：正序的迭代器，与普通字典相同
+
+#### 5.2.4 defaultdict
+
+具有复杂默认类型的字典。
+
+普通的字典在索引不存在的key时，会抛出KeyError，其解决方法是`dict.get(no_exist_key, default_value)`，defaultdict是一个支持复杂默认类型的字典。用法：`dic = collection.defaultdict(predefined_class_or_function)`
+
+```python
+# define a class
+class myClass:
+  ...
+# 定义类作为默认值  
+dic = collection.defaultdict(myClass)
+dic[key] # 调用一次myClass构造函数，多次调用同一个不存在的key，只构造一个函数
+
+# 定义函数作为默认值
+def myFunc():
+  ...
+dic2 = collection_defaultdict(myFunc)
+dic2[key] # 调用一次myFunc函数，多次调用同一个不存在的key，只构造一个函数
+```
+
+
+
 
 
 ## 6. Type Hints
