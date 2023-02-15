@@ -52,7 +52,7 @@ tag:
 
 
 
-### 2.1 子序列问题(一维dp数组:1143, 300, 二维dp数组: 1312,516,72)
+### 2.1 子序列问题(一维dp数组:1143, 300, 二维dp数组: 1312,516,72,5)
 
 <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230123001031189.png" alt="image-20230123001031189" style="zoom:50%;" />
 
@@ -1835,6 +1835,70 @@ class Solution:
                         dp[i-1][j-1] + 1 # i指针改为j指针内容
                     ])
         return dp[m][n]
+```
+
+### 5. 最长回文子串
+
+> 给你一个字符串 `s`，找到 `s` 中最长的回文子串。
+>
+> 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。 
+>
+> **示例 1：**
+>
+> ```
+> 输入：s = "babad"
+> 输出："bab"
+> 解释："aba" 同样是符合题意的答案。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：s = "cbbd"
+> 输出："bb"
+> ```
+>
+> **提示：**
+>
+> - `1 <= s.length <= 1000`
+> - `s` 仅由数字和英文字母组成
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # 动态规划一下
+        '''
+        dp[i][j]: s[i]到s[j]是否为回文
+        if dp[i+1][j-1] is True and s[i] == s[j]: dp[i][j] = True; i<=j
+        dp[i][i] = True
+
+        注意：在状态转移方程中，我们是从长度较短的字符串向长度较长的字符串进行转移的，因此一定要注意动态规划的循环顺序。
+        '''
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        max_len = 0
+        max_idx = (0,0)
+        for i in range(n):
+            dp[i][i] = True
+        # 由于要从长度较短的字符串向长度最长的字符串转移，这里考虑枚举字符串的长度
+        for l in range(2, n+1):
+            # 枚举字符串的起始位置：
+            for i in range(0, n):
+                j = i + l - 1
+                if j >= n:
+                    break
+                # 每次只要比较s[i]是否等于s[j]
+                if s[i] == s[j]:
+                    if j-i+1 <= 2:
+                        dp[i][j] = True # 长度为2的回文
+                    else:
+                        dp[i][j] = dp[i+1][j-1] # 长度超过3，则由更短的子串决定
+                    if dp[i][j] is True and j-i+1 > max_len:
+                        max_len = j-i+1
+                        max_idx = (i, j)
+                else:
+                    dp[i][j] = False
+        return s[max_idx[0]: max_idx[1]+1]
 ```
 
 ### 516. 最长回文子序列
