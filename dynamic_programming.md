@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2023-02-12 18:00:00
+updated: 2023-02-21 13:00:00
 tag:
 - leetcode
 - dynamic programming
@@ -32,7 +32,7 @@ tag:
 
 1. [单词拆分](#split_words): 这个题还没搞懂，要反复记忆。
 
-1. [打家劫舍](#rob)：定义一个`f(i)`表示抢劫到第`i`个房子的时候可以抢劫到的最大数量，有两种可能，一种是抢劫了上一间，则此次不能抢劫，一种是此次可以抢劫，则加上本次抢劫的钱。\
+1. [打家劫舍](#rob)：定义一个`f(i)`表示抢劫到第`i`个房子的时候可以抢劫到的最大数量，有两种可能，一种是抢劫了上一间，则此次不能抢劫，一种是此次可以抢劫，则加上本次抢劫的钱。
 
     `f(i) = max(f(i-1), f(i-1)+money[i])`
 
@@ -192,7 +192,7 @@ int knapsack(int W, int N, vector<int>& wt, vector<int>& val) {
 
 
 
-### 2.4 贪心算法 (时间规划问:435,452,1024; 跳跃游戏:55,45)
+### 2.4 贪心算法 (时间规划问:435,452,1024,1326; 跳跃游戏:55,45,1326)
 
 什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。
 
@@ -2233,6 +2233,108 @@ class Solution:
             res += 1
         return res
 ```
+
+### 1326. 灌溉花园的最少水龙头数目
+
+> 在 x 轴上有一个一维的花园。花园长度为 `n`，从点 `0` 开始，到点 `n` 结束。
+>
+> 花园里总共有 `n + 1` 个水龙头，分别位于 `[0, 1, ..., n]` 。
+>
+> 给你一个整数 `n` 和一个长度为 `n + 1` 的整数数组 `ranges` ，其中 `ranges[i]` （下标从 0 开始）表示：如果打开点 `i` 处的水龙头，可以灌溉的区域为 `[i - ranges[i], i + ranges[i]]` 。
+>
+> 请你返回可以灌溉整个花园的 **最少水龙头数目** 。如果花园始终存在无法灌溉到的地方，请你返回 **-1** 。
+>
+>  
+>
+> **示例 1：**
+>
+> <img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/01/19/1685_example_1.png" alt="img" style="zoom:50%;" />
+>
+> ```
+> 输入：n = 5, ranges = [3,4,1,1,0,0]
+> 输出：1
+> 解释：
+> 点 0 处的水龙头可以灌溉区间 [-3,3]
+> 点 1 处的水龙头可以灌溉区间 [-3,5]
+> 点 2 处的水龙头可以灌溉区间 [1,3]
+> 点 3 处的水龙头可以灌溉区间 [2,4]
+> 点 4 处的水龙头可以灌溉区间 [4,4]
+> 点 5 处的水龙头可以灌溉区间 [5,5]
+> 只需要打开点 1 处的水龙头即可灌溉整个花园 [0,5] 。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：n = 3, ranges = [0,0,0,0]
+> 输出：-1
+> 解释：即使打开所有水龙头，你也无法灌溉整个花园。
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - `1 <= n <= 104`
+> - `ranges.length == n + 1`
+> - `0 <= ranges[i] <= 100`
+
+```python
+class Solution:
+    def minTaps(self, n: int, ranges: List[int]) -> int:
+        '''
+        感觉是动态规划，或者是贪心，类似于视频拼接（每一步都寻找当当前能够覆盖的最远的水龙头）
+        1. 每个水龙头按照能覆盖的范围的起始点开始升序排列，相同时间开始的，按照结束时间倒序排序
+        2. 选最先开始的片段
+        3. 开始时间早于或等于当前结束时间，并最晚结束的片段
+        4. 重复3直到覆盖所有片段
+
+        本题与视频拼接的区别在于：最早开始的水龙头不一定要被选中，只需覆盖0即可
+        '''
+        range_list = []
+        for i, r in enumerate(ranges):
+            if i-r < 0:
+                range_list.append((0, i+r))
+            else:
+                range_list.append((i-r, i+r))
+        tmp = {}
+        for item in range_list:
+            if tmp.get(item[0]) is None:
+                tmp[item[0]] = []
+            tmp[item[0]].append(item)
+        # 倒序
+        for k, v in tmp.items():
+            tmp[k].sort(key=lambda x:x[-1], reverse=True)
+        range_list = []
+        kl = list(tmp.keys())
+        kl.sort()
+        # 正序
+        for k in kl:
+            range_list += tmp[k]
+        # 
+        use = 1
+        idx = 0
+        start = range_list[idx][0]
+        end = range_list[idx][1] # 当前覆盖到的最后区域
+        if start > 0:
+            return -1 # 最早开始的都不能覆盖到0
+        while end < n and idx < len(range_list): # 没有覆盖到最后
+            maxx = -1 # 选能够得到的最远覆盖
+            sel_idx = -1 # 下一次要选择的位置
+            for select in range(idx+1, len(range_list)):
+                if range_list[select][0] <= end and range_list[select][1] > end and range_list[select][1] > maxx: # 能和上一段连起来，且能覆盖最远的水龙头
+                    maxx = range_list[select][1]
+                    sel_idx = select
+            if sel_idx == -1: # 找不到符合标准的下一段
+                return -1
+            else:
+                idx = sel_idx
+                end = range_list[idx][1]
+                use += 1
+        return use
+```
+
+
 
 ### 174. 地下城游戏
 
