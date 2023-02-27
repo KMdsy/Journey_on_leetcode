@@ -1,7 +1,7 @@
 ---
 title: Dynamic Programming (动态规划) 
 date: 2022-08-19 14:00:00
-updated: 2023-02-21 13:00:00
+updated: 2023-02-27 11:00:00
 tag:
 - leetcode
 - dynamic programming
@@ -2666,5 +2666,77 @@ class Solution:
                     for x in range(1, 2*j+1):
                         dp[i][j] = max([dp[i][j], sum(piles[i:]) - dp[i+x][max([j, x])]])
         return dp[0][1]
+```
+
+
+
+### 1144. 递减元素使数组呈锯齿状
+
+> 给你一个整数数组 `nums`，每次 **操作** 会从中选择一个元素并 **将该元素的值减少 1**。
+>
+> 如果符合下列情况之一，则数组 `A` 就是 **锯齿数组**：
+>
+> - 每个偶数索引对应的元素都大于相邻的元素，即 `A[0] > A[1] < A[2] > A[3] < A[4] > ...`
+> - 或者，每个奇数索引对应的元素都大于相邻的元素，即 `A[0] < A[1] > A[2] < A[3] > A[4] < ...`
+>
+> 返回将数组 `nums` 转换为锯齿数组所需的最小操作次数。
+>
+> **示例 1：**
+>
+> ```
+> 输入：nums = [1,2,3]
+> 输出：2
+> 解释：我们可以把 2 递减到 0，或把 3 递减到 1。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：nums = [9,6,1,6,2]
+> 输出：4
+> ```
+>
+> **提示：**
+>
+> - `1 <= nums.length <= 1000`
+> - `1 <= nums[i] <= 1000`
+
+```python
+class Solution:
+    def movesToMakeZigzag(self, nums: List[int]) -> int:
+        '''
+        明显是动态规划，总的最小操作次数最小即锯齿波形最平缓，即每次都操作最少的次数使得符合要求
+        dp[i]: 遍历到i位的时候，要对i位操作多少次，使得满足条件
+        遍历两次取最少好了
+        - 第一种情况：
+            if i % 2 == 1: # 操作奇数索引
+                if nums[i-1] > nums[i] < nums[i+1] is False:
+                    dp[i] = nums[i] - min([nums[i-1], nums[i+1]]) + 1
+        - 第二种情况：
+            if i % 2 == 0: # 操作偶数索引
+                if nums[i-1] > nums[i] < nums[i+1] is False:
+                    dp[i] = nums[i] - min([nums[i-1], nums[i+1]]) + 1
+
+        '''
+        if len(nums) == 1:
+            return 0
+        n = len(nums)
+        dp = [0] * n
+        cases = [1, 0]
+        res = math.inf
+
+        for case in cases:
+            for i in range(n):
+                if i % 2 == case: # 操作奇数 / 偶数索引
+                    if i-1 >= 0 and i+1 < n and (nums[i-1] > nums[i] < nums[i+1]) is False:
+                        dp[i] = nums[i] - min([nums[i-1], nums[i+1]]) + 1
+                    elif i-1 < 0 and (nums[i] < nums[i+1]) is False:
+                        dp[i] = nums[i] - nums[i+1] + 1
+                    elif i+1 >= n and (nums[i-1] > nums[i]) is False:
+                        dp[i] = nums[i] - nums[i-1] + 1
+            res = min([res, sum(dp)])
+            dp = [0] * n
+
+        return res
 ```
 

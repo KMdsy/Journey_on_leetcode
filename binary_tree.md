@@ -1,7 +1,7 @@
 ---
 title: Binary Tree 
 date: 2022-08-29 21:00:00
-updated: 2022-12-07 17:00:00
+updated: 2022-02-27 11:00:00
 tag:
 - leetcode
 - binary tree
@@ -19,7 +19,6 @@ tag:
     - 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
     - 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
     - 它的左、右子树也分别为二叉搜索树
-
 
 
 
@@ -73,7 +72,8 @@ void bfs(TreeNode root) {
 
     <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230212145316443.png" alt="image-20230212145316443" style="zoom:33%;" />
 
-- 
+
+
 
 ## 题目思路记忆要点
 
@@ -104,6 +104,13 @@ void bfs(TreeNode root) {
 1. [合并二叉树](#combine_two_tree)：最好再温习一下
 
 1. [二叉树的直径](#r_of_tree)：**每一条二叉树的「直径」长度就是一个节点的左右子树的最大深度之和**。直径长度可以被拆分为三个部分：一个根结点、左子树、右子树。直径路径（所包含的节点数目）即为上述两个子树的深度之和 + 1。路径长度是节点数目 - 1。
+
+1. [二叉树着色游戏](color_the_tree)：
+
+    - 这是一个策略题，在 n 个节点的二叉树中，节点 x 将二叉树分成三个区域
+    - 一旦二号玩家选定了第二步的填色区域，以后的填色区域就只在这个区域。（这个可以自己演绎推论）
+    - 这种情况下，二号玩家的最优填色区域就是整个这片区域
+    - 问题转化为：找到 x 节点划分的三个区域中，包含节点数最多的区域，如果这个区域的节点超过半数，则获胜
 
 ## 题目
 
@@ -764,5 +771,97 @@ class Solution:
                         res = func(r.left) and func(r.right)
                     return res
         return func(root)
+```
+
+### 1145. 二叉树着色游戏 <a name='color_the_tree'>📌</a>
+
+> 有两位极客玩家参与了一场「二叉树着色」的游戏。游戏中，给出二叉树的根节点 `root`，树上总共有 `n` 个节点，且 `n` 为奇数，其中每个节点上的值从 `1` 到 `n` 各不相同。
+>
+> 最开始时：
+>
+> - 「一号」玩家从 `[1, n]` 中取一个值 `x`（`1 <= x <= n`）；
+> - 「二号」玩家也从 `[1, n]` 中取一个值 `y`（`1 <= y <= n`）且 `y != x`。
+>
+> 「一号」玩家给值为 `x` 的节点染上红色，而「二号」玩家给值为 `y` 的节点染上蓝色。
+>
+> 之后两位玩家轮流进行操作，「一号」玩家先手。每一回合，玩家选择一个被他染过色的节点，将所选节点一个 **未着色** 的邻节点（即左右子节点、或父节点）进行染色（「一号」玩家染红色，「二号」玩家染蓝色）。
+>
+> 如果（且仅在此种情况下）当前玩家无法找到这样的节点来染色时，其回合就会被跳过。
+>
+> 若两个玩家都没有可以染色的节点时，游戏结束。着色节点最多的那位玩家获得胜利 ✌️。
+>
+> 现在，假设你是「二号」玩家，根据所给出的输入，假如存在一个 `y` 值可以确保你赢得这场游戏，则返回 `true` ；若无法获胜，就请返回 `false` 。
+>
+>  
+>
+> **示例 1 ：**
+>
+> <img src="https://assets.leetcode.com/uploads/2019/08/01/1480-binary-tree-coloring-game.png" alt="img" style="zoom:50%;" />
+>
+> ```
+> 输入：root = [1,2,3,4,5,6,7,8,9,10,11], n = 11, x = 3
+> 输出：true
+> 解释：第二个玩家可以选择值为 2 的节点。
+> ```
+>
+> **示例 2 ：**
+>
+> ```
+> 输入：root = [1,2,3], n = 3, x = 1
+> 输出：false
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - 树中节点数目为 `n`
+> - `1 <= x <= n <= 100`
+> - `n` 是奇数
+> - `1 <= Node.val <= n`
+> - 树中所有值 **互不相同**
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def btreeGameWinningMove(self, root: Optional[TreeNode], n: int, x: int) -> bool:
+        '''
+        这是一个策略题，在 n 个节点的二叉树中，节点 x 将二叉树分成三个区域
+        - 节点 x 的左子树
+        - 节点 x 的右子树
+        - 其余节点
+        三个区域的节点总数是 n-1，每个区域可能为空。
+
+        *** 一旦二号玩家选定了第二步的填色区域，以后的填色区域就只在这个区域。（这个可以自己演绎推论）
+        这种情况下，二号玩家的最优填色区域就是整个这片区域
+        ！问题转化为：找到 x 节点划分的三个区域中，包含节点数最多的区域，如果这个区域的节点超过半数，则获胜
+
+        '''
+        
+        xNode = None
+
+        def getSubtreeSize(node):
+            if not node:
+                return 0
+            if node.val == x:
+                nonlocal xNode
+                xNode = node
+            return 1 + getSubtreeSize(node.left) + getSubtreeSize(node.right)
+
+        getSubtreeSize(root)
+        leftSize = getSubtreeSize(xNode.left)
+        if leftSize >= (n + 1) // 2:
+            return True
+        rightSize = getSubtreeSize(xNode.right)
+        if rightSize >= (n + 1) // 2:
+            return True
+        remain = n - leftSize - rightSize - 1
+        return remain >= (n + 1) // 2
+
 ```
 
