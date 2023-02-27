@@ -1,7 +1,7 @@
 ---
 title: Python语法查漏补缺
 date: 2022-04-11 10:12:00
-updated: 2022-01-24 22:45:00
+updated: 2022-02-27 10:45:00
 tag:
 - leetcode
 - python
@@ -16,7 +16,7 @@ tag:
     - 与、或：`x & y`, `x | y`
     - 左右移动`n`位：`x >> n`，`x << n`
 
-- 进制转换：
+- 进制转换：十进制数`x`转`n`进制 `int(x, n)`
 
     ![image-20221205224445635](https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20221205224445635.png)
 
@@ -25,6 +25,22 @@ tag:
     - 0o / 0O --> 八进制字符前缀
 
     - 0x / 0X --> 十六进制字符前缀
+
+- `nonlocal `keyword：用于在函数内部引用外部定义的变量，此时在函数内部可以对外部变量做修改
+
+    ```python
+    def myfunc1():
+      x = "John"
+      def myfunc2():
+        nonlocal x
+        x = "hello"
+      myfunc2() 
+      return x
+    
+    print(myfunc1()) # >> 'hello'
+    ```
+
+    
 
 ## 2. List
 
