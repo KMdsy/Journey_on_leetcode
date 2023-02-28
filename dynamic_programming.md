@@ -30,17 +30,19 @@ tag:
 
 1. [跳跃游戏I/II](#jump_1)：贪心算法，在每个位置上先评估是否可以一次跳跃到终点，如果不能，则在可以跳跃的位置处分别评估第二跳可以到达的最远位置，来选择下一跳的位置。跳跃游戏II也是这个原理
 
-1. [单词拆分](#split_words): 这个题还没搞懂，要反复记忆。
+2. [不同路径I/II](#different_route)：`dp[i][j]`定义了到达`[i][j]`的 路径总数，在上面和左边没有任何障碍的时候，`dp[i][j] = dp[i-1][j] + dp[i][j-1]`
 
-1. [打家劫舍](#rob)：定义一个`f(i)`表示抢劫到第`i`个房子的时候可以抢劫到的最大数量，有两种可能，一种是抢劫了上一间，则此次不能抢劫，一种是此次可以抢劫，则加上本次抢劫的钱。
+3. [单词拆分](#split_words): 这个题还没搞懂，要反复记忆。
+
+4. [打家劫舍](#rob)：定义一个`f(i)`表示抢劫到第`i`个房子的时候可以抢劫到的最大数量，有两种可能，一种是抢劫了上一间，则此次不能抢劫，一种是此次可以抢劫，则加上本次抢劫的钱。
 
     `f(i) = max(f(i-1), f(i-1)+money[i])`
 
-1. [最大的正方形](#max_squre)：对于在矩阵内搜索正方形或长方形的题型，一种常见的做法是定义一个二维`dp `数组，其中`dp[i][j]` 表示满足题目条件的、以`(i, j)` 为右下角的正方形或者长方形的属性。对于本题，则表示以`(i, j)` 为右下角的全由`1 `构成的最大正方形边长。转移矩阵是
+5. [最大的正方形](#max_squre)：对于在矩阵内搜索正方形或长方形的题型，一种常见的做法是定义一个二维`dp `数组，其中`dp[i][j]` 表示满足题目条件的、以`(i, j)` 为右下角的正方形或者长方形的属性。对于本题，则表示以`(i, j)` 为右下角的全由`1 `构成的最大正方形边长。转移矩阵是
 
     `dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1`
 
-5. 股票买卖问题
+6. 股票买卖问题
 
     1. [股票买卖1](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/): 只交易一次，则第`i`天的收益即为`prices[i] - min(prices[0:i])`，注意其中的`min`操作会导致超时，用缓存变量解决
 
@@ -50,7 +52,7 @@ tag:
 
         <img src="https://raw.githubusercontent.com/KMdsy/figurebed/master/img/image-20230212180540365.png" alt="image-20230212180540365" style="zoom:25%;" />
 
-6. [石子游戏II](#stoneGameII)
+7. [石子游戏II](#stoneGameII)
 
 ```python
 看起来像是动态规划
@@ -421,7 +423,7 @@ class Solution:
         return max(all_re)
 ```
 
-### 62. 不同路径
+### 62. 不同路径 <a name="different_route"> 📌</a>
 
 >  一个机器人位于一个 `m x n` 网格的左上角 （起始点在下图中标记为 “Start” ）。
 >
@@ -511,6 +513,110 @@ class Solution:
                     re[f'{i}_{j}'] = re[f'{i-1}_{j}'] + re[f'{i}_{j-1}']
         return re[f'{m-1}_{n-1}']
 ```
+
+### 63.不同路径 II
+
+> 一个机器人位于一个 `m x n` 网格的左上角 （起始点在下图中标记为 “Start” ）。
+>
+> 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish”）。
+>
+> 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+>
+> 网格中的障碍物和空位置分别用 `1` 和 `0` 来表示。
+>
+> **示例 1：**
+>
+> <img src="https://assets.leetcode.com/uploads/2020/11/04/robot1.jpg" alt="img" style="zoom:50%;" />
+>
+> ```
+> 输入：obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+> 输出：2
+> 解释：3x3 网格的正中间有一个障碍物。
+> 从左上角到右下角一共有 2 条不同的路径：
+> 1. 向右 -> 向右 -> 向下 -> 向下
+> 2. 向下 -> 向下 -> 向右 -> 向右
+> ```
+>
+> **示例 2：**
+>
+> <img src="https://assets.leetcode.com/uploads/2020/11/04/robot2.jpg" alt="img" style="zoom:50%;" />
+>
+> ```
+> 输入：obstacleGrid = [[0,1],[0,0]]
+> 输出：1
+> ```
+>
+> **提示：**
+>
+> - `m == obstacleGrid.length`
+> - `n == obstacleGrid[i].length`
+> - `1 <= m, n <= 100`
+> - `obstacleGrid[i][j]` 为 `0` 或 `1`
+
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        '''
+        动态规划
+        从finish grid[m][n] 往前倒推，
+        if grid[i][j] == 0:
+            if grid[i-1][j] == 0 and grid[i][j-1] == 0:
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+            elif grid[i-1][j] == 0 and grid[i][j-1] != 0:
+                dp[i][j] = dp[i-1][j]
+            elif grid[i-1][j] != 0 and grid[i][j-1] == 0:
+                dp[i][j] = dp[i][j-1]
+            else:
+                dp[i][j] = 0
+        else:
+            dp[i][j] = 0
+
+        dp[0][0] = 1
+        result: dp[m-1][n-1]
+        '''
+        grid = obstacleGrid
+        m, n = len(grid), len(grid[0])
+        
+        # 处理边界
+        if grid[0][0] == 1 or grid[m-1][n-1] == 1:
+            return 0
+
+        dp = [[0] * n for _ in range(m)]
+        dp[0][0] = 1
+        # 处理边界
+        for i in range(1, m): # j = 0
+            if grid[i][0] == 0:
+                dp[i][0] = 1
+            else:
+                for ii in range(i, m):
+                    dp[ii][0] = 0
+                break
+        for j in range(1, n): # i = 0
+            if grid[0][j] == 0:
+                dp[0][j] = 1
+            else:
+                for jj in range(j, n):
+                    dp[0][jj] = 0
+                break
+
+
+        for i in range(1, m):
+            for j in range(1, n):
+                if  grid[i][j] == 0:
+                    if grid[i-1][j] == 0 and grid[i][j-1] == 0:
+                        dp[i][j] = dp[i-1][j] + dp[i][j-1]
+                    elif grid[i-1][j] == 0 and grid[i][j-1] != 0:
+                        dp[i][j] = dp[i-1][j]
+                    elif grid[i-1][j] != 0 and grid[i][j-1] == 0:
+                        dp[i][j] = dp[i][j-1]
+                    else:
+                        dp[i][j] = 0
+                else:
+                    dp[i][j] = 0
+        return dp[m-1][n-1]
+```
+
+
 
 ### 64. 最小路径和
 
