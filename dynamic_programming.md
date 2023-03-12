@@ -2846,3 +2846,80 @@ class Solution:
         return res
 ```
 
+### 百度校招-2022.9.13-01反转
+
+> **题目解析以及代码**
+>
+> 关注公众号:塔子哥学算法，搜索“P1024”即可得到对应题解
+>
+> **题目大意**
+>
+> 给一个01串，每次可以选择两个连续的下标，并对该下标的元素取反（0变1，1变0），问是否可以将串转换为只包含0或只包含1
+>
+> **输入描述**
+>
+> 输入一个只包含字符0或者1的字符串s（1<=字符串长度<=1000000)
+>
+> **输出描述**
+>
+> 如果满足题意输出"yes",否则输出"no"(不含引号)
+>
+> **样例**
+>
+> **输入1**
+>
+> ```none
+> 1010010
+> ```
+>
+> **输出1**
+>
+> ```none
+> yes
+> ```
+>
+> **输入2**
+>
+> ```none
+> 10100100
+> ```
+>
+> **输出2**
+>
+> ```none
+> no
+> ```
+
+```python
+def myfunc(input_str):
+    '''
+    分类讨论反转为0或1的情况
+    贪心：分别在每一位上评估是否要为0或者1，如果最后能全部转为0或者1，则可以满足要求
+    '''
+    def check(input_str, flag):
+        for i in range(len(input_str)-1):
+            if input_str[i] == flag:
+                continue
+            else:
+                # 连续改两位
+                if input_str[i] == '0': input_str[i] = '1'
+                elif input_str[i] == '1': input_str[i] = '0'
+
+                if input_str[i+1] == '0': input_str[i+1] = '1'
+                elif input_str[i+1] == '1': input_str[i+1] = '0'
+        # 上述代码没有评价最后一个字符是否满足要求
+        if input_str[-1] == flag:
+            return True
+        else:
+            return False
+    if check(input_str, '0') or check(input_str, '1'):
+        return 'yes'
+    else: 
+        return 'no'
+
+input_str = input()
+input_str = list(input_str)
+res = myfunc(input_str)
+print(res)
+```
+

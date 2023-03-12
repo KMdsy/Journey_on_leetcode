@@ -13,7 +13,7 @@ tag:
 
 ## 本章题目思路记忆要点
 
-1. 
+1. **快速排序**：选一个基准，使得左边的部分比该基准小，右边的部分比该基准大，然后分别对基准左边的子序列和基准右边的子序列再次快排。
 
 ## 题目
 
@@ -329,5 +329,72 @@ class Solution:
                 num -= 2**(-i)
             i += 1
         return res
+```
+
+### 215. 数组中的第K个最大元素 <a name="K_largest">📌</a>
+
+> 给定整数数组 `nums` 和整数 `k`，请返回数组中第 `**k**` 个最大的元素。
+>
+> 请注意，你需要找的是数组排序后的第 `k` 个最大的元素，而不是第 `k` 个不同的元素。
+>
+> 你必须设计并实现时间复杂度为 `O(n)` 的算法解决此问题。
+>
+> **示例 1:**
+>
+> ```
+> 输入: [3,2,1,5,6,4], k = 2
+> 输出: 5
+> ```
+>
+> **示例 2:**
+>
+> ```
+> 输入: [3,2,3,1,2,4,5,5,6], k = 4
+> 输出: 4
+> ```
+>
+> **提示：**
+>
+> - `1 <= k <= nums.length <= 105`
+> - `-104 <= nums[i] <= 104`
+
+```python
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        '''
+        快排思路：选一个基准，使得左边的部分比该基准大，右边的部分比该基准小（构成倒序的序列）
+        当选择的基准是第k-1个索引的时候，返回该值（即第k大的值）
+        本题的主要思路是，借助“随机选择基准”，避免恶意的测试样例（将最小的数放在固定的位置）
+        此外，算法只要找到第k大的数字即可，无需全部排序，因此可以降低（平均）时间复杂度到O(n)
+        '''
+        # 快排实现
+        def sort(nums, L, R, K):
+            base_idx = random.randint(L, R)
+            target = nums[base_idx]
+            
+            l, r = L, R
+            nums[base_idx] = nums[l] # 第一次交换的时候，l位置的值会丢失，保存一下
+            while l < r:
+                while l < r and nums[r] < target: # 找到第一个右侧小于target的数字
+                    r -= 1
+                if l < r: # 找到了
+                    nums[l] = nums[r]
+                    l += 1
+                while l < r and nums[l] > target: # 找到第一个左侧大于target的数字
+                    l += 1
+                if l < r:
+                    nums[r] = nums[l]
+                    r -= 1
+            # r == l
+            nums[r] = target
+            
+            if r == K: 
+                return nums[r]
+            elif r > K: # 在大的部分找
+                return sort(nums, L, r-1, K)
+            else:
+                return sort(nums, r+1, R, K)
+
+        return sort(nums, 0, len(nums)-1, k-1)
 ```
 
