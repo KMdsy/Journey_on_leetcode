@@ -3147,3 +3147,190 @@ class Solution:
         return res
 ```
 
+### 1190. 反转每对括号间的子串
+
+> 给出一个字符串 `s`（仅含有小写英文字母和括号）。
+>
+> 请你按照从括号内到外的顺序，逐层反转每对匹配括号中的字符串，并返回最终的结果。
+>
+> 注意，您的结果中 **不应** 包含任何括号。
+>
+> **示例 1：**
+>
+> ```
+> 输入：s = "(abcd)"
+> 输出："dcba"
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：s = "(u(love)i)"
+> 输出："iloveu"
+> 解释：先反转子字符串 "love" ，然后反转整个字符串。
+> ```
+>
+> **示例 3：**
+>
+> ```
+> 输入：s = "(ed(et(oc))el)"
+> 输出："leetcode"
+> 解释：先反转子字符串 "oc" ，接着反转 "etco" ，然后反转整个字符串。
+> ```
+>
+> **示例 4：**
+>
+> ```
+> 输入：s = "a(bcdefghijkl(mno)p)q"
+> 输出："apmnolkjihgfedcbq"
+> ```
+
+```python
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+        '''
+        从测试用例上看，括号不是严格嵌套的，要用栈
+        '''
+        s = s.replace('()', '')
+        start_list = [] # 左括号
+        res = list(s)
+        for i, l in enumerate(res):
+            if l == '(':
+                start_list.append(i)
+            elif l == ')':
+                # 反转start_list.pop(-1)到i的部分
+                ll, rr = start_list.pop(-1), i+1
+                content = res[ll:rr][::-1] # 反转
+                for ii in range(ll, rr):
+                    res[ii] = content.pop(0)
+        ress = ''.join(res)
+        ress = ress.replace('(', '')
+        ress = ress.replace(')', '')
+        return ress
+```
+
+### 781. 森林中的兔子
+
+> 森林中有未知数量的兔子。提问其中若干只兔子 **"还有多少只兔子与你（指被提问的兔子）颜色相同?"** ，将答案收集到一个整数数组 `answers` 中，其中 `answers[i]` 是第 `i` 只兔子的回答。
+>
+> 给你数组 `answers` ，返回森林中兔子的最少数量。
+>
+> **示例 1：**
+>
+> ```
+> 输入：answers = [1,1,2]
+> 输出：5
+> 解释：
+> 两只回答了 "1" 的兔子可能有相同的颜色，设为红色。 
+> 之后回答了 "2" 的兔子不会是红色，否则他们的回答会相互矛盾。
+> 设回答了 "2" 的兔子为蓝色。 
+> 此外，森林中还应有另外 2 只蓝色兔子的回答没有包含在数组中。 
+> 因此森林中兔子的最少数量是 5 只：3 只回答的和 2 只没有回答的。
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：answers = [10,10,10]
+> 输出：11
+> ```
+>
+> **提示：**
+>
+> - `1 <= answers.length <= 1000`
+> - `0 <= answers[i] < 1000`
+
+```python
+class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+        '''
+        拥有同一种回答'num'的兔子，可能拥有一种颜色
+        - 这种情况只在回答该答案的兔子数量超过'num+1'时不成立
+        - 此时其他颜色的兔子被视为是另一种颜色，也有'num+1'只
+        '''
+        answers.sort()
+        color = {} # key: color, value: number
+        res = 0
+        for i, num in enumerate(answers):
+            # 这种颜色的兔子有num+1只
+            if i == 0:
+                res += num + 1
+                answered = 1
+            else:
+                if num == answers[i-1] and answered < num + 1:
+                    # 回答与上一只兔子一样，且已回答的兔子不足兔子的总人数
+                    answered += 1 # 对于一种颜色，又有一个兔子回答了
+                else:
+                    # 回答不同，或者上一个颜色已满，新建颜色
+                    res += num + 1
+                    answered = 1
+        return res
+```
+
+### 739. 每日温度
+
+> 给定一个整数数组 `temperatures` ，表示每天的温度，返回一个数组 `answer` ，其中 `answer[i]` 是指对于第 `i` 天，下一个更高温度出现在几天后。如果气温在这之后都不会升高，请在该位置用 `0` 来代替。
+>
+> **示例 1:**
+>
+> ```
+> 输入: temperatures = [73,74,75,71,69,72,76,73]
+> 输出: [1,1,4,2,1,1,0,0]
+> ```
+>
+> **示例 2:**
+>
+> ```
+> 输入: temperatures = [30,40,50,60]
+> 输出: [1,1,1,0]
+> ```
+>
+> **示例 3:**
+>
+> ```
+> 输入: temperatures = [30,60,90]
+> 输出: [1,1,0]
+> ```
+>
+> **提示：**
+>
+> - `1 <= temperatures.length <= 10^5`
+> - `30 <= temperatures[i] <= 100`
+
+```python
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        import numpy as np
+        '''
+        倒序问题：在第i天前，哪天的温度比今天高
+        '''
+        temperatures_re = temperatures[::-1]
+        # 一个字典，保存i位置之前所有温度的所在的位置
+        # 每次查询的时候
+        # 1. 查找是否有比当前位置更高的温度
+        # 2. 输出距离i最近、具有更高温度的一天
+        # 3. 结果即为两天索引差值
+        record = {} # key: temp, value: day
+        res = []
+        for i, temp in enumerate(temperatures_re):
+            if i == 0:
+                res.append(0)
+                record[temp] = []
+                record[temp].append(i)
+            else:
+                if max(record.keys()) > temp:
+                    # 历史上有比今天更高的温度，遍历所有具有更高温度的一天
+                    latest_day = -1
+                    for k, v in record.items():
+                        if k > temp:
+                            latest_day = max([latest_day, v[-1]]) # 取最近的一天
+                    res.append(i - latest_day)
+                else:
+                    res.append(0)
+                # 当天记录
+                if record.get(temp) is None:
+                    record[temp] = []
+                record[temp].append(i)
+        return res[::-1]
+```
+
