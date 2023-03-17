@@ -14,6 +14,7 @@ tag:
 ## 本章题目思路记忆要点
 
 1. **快速排序**：选一个基准，使得左边的部分比该基准小，右边的部分比该基准大，然后分别对基准左边的子序列和基准右边的子序列再次快排。
+1. 反转链表II：链表问题首先要加一个虚拟头节点
 
 ## 题目
 
@@ -396,5 +397,78 @@ class Solution:
                 return sort(nums, r+1, R, K)
 
         return sort(nums, 0, len(nums)-1, k-1)
+```
+
+### 92. 反转链表 II
+
+> 给你单链表的头指针 `head` 和两个整数 `left` 和 `right` ，其中 `left <= right` 。请你反转从位置 `left` 到位置 `right` 的链表节点，返回 **反转后的链表** 。
+>
+>  
+>
+> **示例 1：**
+>
+> ![img](https://assets.leetcode.com/uploads/2021/02/19/rev2ex2.jpg)
+>
+> ```
+> 输入：head = [1,2,3,4,5], left = 2, right = 4
+> 输出：[1,4,3,2,5]
+> ```
+>
+> **示例 2：**
+>
+> ```
+> 输入：head = [5], left = 1, right = 1
+> 输出：[5]
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - 链表中节点数目为 `n`
+> - `1 <= n <= 500`
+> - `-500 <= Node.val <= 500`
+> - `1 <= left <= right <= n`
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        if head.next is None:
+            return head
+        if left == right:
+            return head
+        # 思路：链表不长，可以直接拆分成三段，反转部分列表
+        
+        xx = ListNode(next=head) # 虚拟头节点
+        pin = xx
+        cnt = 0 # pin的位置
+        
+        while pin is not None:
+            if cnt + 1 == left:
+                store1 = pin
+                new_head = pin.next
+            if cnt == right:
+                store2 = pin.next
+                pin.next = None
+                break
+            pin = pin.next
+            cnt += 1
+        store1.next = None
+        # 至此，拆分为了三部分
+        prev, ne = new_head, new_head.next
+        new_head.next = None
+        while ne is not None:
+            tmp = ne.next
+            ne.next = prev
+            prev = ne
+            ne = tmp
+        store1.next = prev
+        new_head.next = store2
+        return xx.next
 ```
 
