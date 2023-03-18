@@ -472,3 +472,152 @@ class Solution:
         return xx.next
 ```
 
+### 82. 删除排序链表中的重复元素 II
+
+> 给定一个已排序的链表的头 `head` ， *删除原始链表中所有重复数字的节点，只留下不同的数字* 。返回 *已排序的链表* 。
+>
+>  
+>
+> **示例 1：**
+>
+> ![img](https://assets.leetcode.com/uploads/2021/01/04/linkedlist1.jpg)
+>
+> ```
+> 输入：head = [1,2,3,3,4,4,5]
+> 输出：[1,2,5]
+> ```
+>
+> **示例 2：**
+>
+> ![img](https://assets.leetcode.com/uploads/2021/01/04/linkedlist2.jpg)
+>
+> ```
+> 输入：head = [1,1,1,2,3]
+> 输出：[2,3]
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - 链表中节点数目在范围 `[0, 300]` 内
+> - `-100 <= Node.val <= 100`
+> - 题目数据保证链表已经按升序 **排列**
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        new_head = ListNode(next=head)
+        # 节点数不多，维护一个列表记录节点的个数及位置
+        pos = {} # key: val, value: [pos_pin-1][pos_pin]
+        prev, ne = new_head, new_head.next
+        delete_set = []
+        while ne is not None:
+            if ne.val not in pos.keys():
+                pos[ne.val] = []
+            pos[ne.val].append(ne) # 找到位置
+            if len(pos[ne.val]) > 1:
+                delete_set.append(ne.val) # 要删除哪些
+            ne = ne.next
+        # 删除delete_set中的节点
+        all_num = list(pos.keys())
+        all_num.sort()
+        delete_set = list(set(delete_set))
+        for del_num in delete_set:
+            # all_num中找到前缀的节点
+            prev_idx = all_num.index(del_num) - 1
+            if prev_idx < 0:
+                prev_pin = new_head
+            else:
+                prev_num = all_num[prev_idx]
+                prev_pin = pos[prev_num][0]
+            # 找到后缀节点
+            next_idx = all_num.index(del_num) + 1
+            if next_idx >= len(all_num):
+                next_pin = None
+            else:
+                next_num = all_num[next_idx]
+                next_pin = pos[next_num][0]
+            # 删除中间的部分
+            prev_pin.next = next_pin
+            # 更新集合all_num
+            all_num.remove(del_num)
+        return new_head.next
+```
+
+### 142. 环形链表 II
+
+> 给定一个链表的头节点  `head` ，返回链表开始入环的第一个节点。 *如果链表无环，则返回 `null`。*
+>
+> 如果链表中有某个节点，可以通过连续跟踪 `next` 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 `pos` 来表示链表尾连接到链表中的位置（**索引从 0 开始**）。如果 `pos` 是 `-1`，则在该链表中没有环。**注意：`pos` 不作为参数进行传递**，仅仅是为了标识链表的实际情况。
+>
+> **不允许修改** 链表。
+>
+> **示例 1：**
+>
+> ![img](https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png)
+>
+> ```
+> 输入：head = [3,2,0,-4], pos = 1
+> 输出：返回索引为 1 的链表节点
+> 解释：链表中有一个环，其尾部连接到第二个节点。
+> ```
+>
+> **示例 2：**
+>
+> ![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png)
+>
+> ```
+> 输入：head = [1,2], pos = 0
+> 输出：返回索引为 0 的链表节点
+> 解释：链表中有一个环，其尾部连接到第一个节点。
+> ```
+>
+> **示例 3：**
+>
+> ![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png)
+>
+> ```
+> 输入：head = [1], pos = -1
+> 输出：返回 null
+> 解释：链表中没有环。
+> ```
+>
+>  
+>
+> **提示：**
+>
+> - 链表中节点的数目范围在范围 `[0, 104]` 内
+> - `-105 <= Node.val <= 105`
+> - `pos` 的值为 `-1` 或者链表中的一个有效索引
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        new_head = ListNode(-1)
+        new_head.next = head
+        # 设置一个set存储遍历过的链表
+        pin = new_head
+        sset = set()
+        while pin is not None:
+            # 先评估这个节点是否指向一个已有的节点
+            if pin.next in sset:
+                return pin.next
+            else:
+                # 如果没有，这个节点可以遍历
+                sset.add(pin)
+            pin = pin.next
+        return None
+```
+
