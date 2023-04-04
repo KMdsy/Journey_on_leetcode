@@ -106,7 +106,7 @@ print(collections.__all__)
 
 #### 5.2.1 deque
 
-常用于**栈**（stack）和**队列**（queue），在两端追加元素时的复杂度都近似为$O(1)$，以下梳理基础方法。
+常用于**栈**（stack）和**队列**（queue），在两端追加元素时的复杂度都近似为$O(1)$，以下梳理基础方法。**若使用 Python 的 list，通过 list.pop(0) 去除头部会消耗 O(n) 的时间**。
 
 - `q = collections.deque(['a', 'b', 'c'])`：初始化队列，可加`maxlen`参数用于固定序列长度
 - `q.append('d'),q.appendleft('d')`：分别从右、左边添加一个元素
